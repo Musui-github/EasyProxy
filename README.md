@@ -18,7 +18,7 @@ No, everything is totally free, if you want to use it no worries, but it is obvi
 ## How to use ?
 - [Documentation](https://github.com/Zwuiix-cmd/EasyProxy/help/DOCS.MD)
 - [Installation](https://github.com/Zwuiix-cmd/EasyProxy/help/INSTALL.MD)
-- [Plugin Creation](https://github.com/Zwuiix-cmd/EasyProxy/help/PLUGIN.MD)
+- [Plugin Creation](https://github.com/Zwuiix-cmd/EasyProxy/blob/V1/help/PLUGIN.MD)
 
 ## For developers
 - [Example Plugin](https://github.com/Zwuiix-cmd/EasyProxy/tree/V1/help/for-dev/Exemple)
