@@ -1,0 +1,7 @@
+{
+  "name": "EasyProxy",
+  "author": "Zwuiix, UnChatSauvage",
+  "version": 1,
+  "main": "src/EasyProxy/Main",
+  "description": "Plugin par l'équipe de EasyProxy"
+}
