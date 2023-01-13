@@ -1,0 +1,7 @@
+{
+  "name": "Scoreboard",
+  "author": "Zwuiix, UnChatSauvage",
+  "version": 1,
+  "main": "src/Scoreboard/Main",
+  "description": "Plugin par l'équipe de EasyProxy"
+}

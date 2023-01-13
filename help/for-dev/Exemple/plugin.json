@@ -1,0 +1,7 @@
+{
+  "name": "ExemplePlugin",
+  "author": "Zwuiix",
+  "version": 1,
+  "main": "src/Zwuiix/Main",
+  "description": "This is a exemple plugin!"
+}
