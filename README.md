@@ -21,8 +21,9 @@ No, everything is totally free, if you want to use it no worries, but it is obvi
 - [Plugin Creation](https://github.com/Zwuiix-cmd/EasyProxy/help/PLUGIN.MD)
 
 ## For developers
-- [Example Plugin](https://github.com/Zwuiix-cmd/EasyProxy/help/for-dev/Example-Plugin.MD)
-- [Scoreboard Example](https://github.com/Zwuiix-cmd/EasyProxy/help/for-dev/ScoreboardExample.MD)
+- [Example Plugin](https://github.com/Zwuiix-cmd/EasyProxy/help/for-dev/Example-Plugin/)
+- [Scoreboard Example](https://github.com/Zwuiix-cmd/EasyProxy/help/for-dev/ScoreboardExample/)
+- [JoinForm](https://github.com/Zwuiix-cmd/EasyProxy/help/for-dev/JoinForm/)
 
 ## Donate
 - [Paypal](https://paypal.me/EasyProxy)
