@@ -22,7 +22,7 @@ No, everything is totally free, if you want to use it no worries, but it is obvi
 
 ## For developers
 - [Example Plugin](https://github.com/Zwuiix-cmd/EasyProxy/tree/V1/help/for-dev/Exemple)
-- [Scoreboard Example](https://github.com/Zwuiix-cmd/EasyProxy/tree/V1/help/for-dev/ScoreboardExample/)
+- [Scoreboard Example](https://github.com/Zwuiix-cmd/EasyProxy/tree/V1/help/for-dev/ScoreboardExemple)
 - [JoinForm](https://github.com/Zwuiix-cmd/EasyProxy/tree/V1/help/for-dev/JoinForm/)
 
 ## Donate
