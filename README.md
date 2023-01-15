@@ -30,6 +30,7 @@ No, everything is totally free, if you want to use it no worries, but it is obvi
 
 ## Contributors
 - [@Zwuiix-cmd](https://github.com/Zwuiix-cmd)
+- [@Azalee](https://github.com/Zaelee)
 - [@UCS](https://github.com/UnNyanCat)
 
 ## Licensing information
