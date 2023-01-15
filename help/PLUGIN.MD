@@ -8,6 +8,7 @@ Step 2: Create a file called plugin.json Then enter the information below *(This
 {
   "name": "ExemplePlugin",
   "author": "Zwuiix",
+  "api": "1.0.1",
   "version": 1,
   "main": "src/Zwuiix/Main",
   "description": "This is a exemple plugin!"
@@ -18,7 +19,7 @@ Step 3: Create your main files (src & your name)
 
 Step 4: Create your main file, which for my part is called Main
 
-Step 5: Once your main file, enter the following information
+Step 5: Once your main file created, enter the following information
 ```javascript
 const PluginBase = require("../../../../../src/plugin/PluginBase");
 const CommandMap = require("../../../../../src/command/CommandMap");

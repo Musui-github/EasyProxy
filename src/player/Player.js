@@ -14,14 +14,22 @@ const SetTitlePacket = require("../packet/SetTitlePacket");
 const SimpleFormRequestPacket = require("../packet/SimpleFormRequestPacket");
 const WorldManager = require("./WorldManager");
 const InventoryTransactionPacket = require("../packet/InventoryTransactionPacket");
+const LevelEventPacket = require("../packet/LevelEventPacket");
+const SetPlayerGameTypePacket = require("../packet/SetPlayerGameTypePacket");
+const Waypoints = require("../waypoints/Waypoints");
+const MovePlayerPacket = require("../packet/MovePlayerPacket");
 
 class Player
 {
-    dimension;
-    spawnPosition;
+    GAMEMODE_CREATIVE = 'creative';
+    GAMEMODE_SURVIVAL = 'survival';
+    GAMEMODE_SPECTATOR = 'spectator';
+    GAMEMODE_ADVENTURE = 'adventure';
+
+    waypoints;
+
     gameVersion;
     gamemode;
-    gamerule;
 
     scoreboard = false;
     scoreboardContent;
@@ -31,6 +39,8 @@ class Player
     player;
     ip;
     port;
+
+    skinData;
 
     username;
     displayName;
@@ -44,6 +54,8 @@ class Player
     effectManager;
     worldManager;
     cheatManager;
+
+    addentitypacket;
 
     immobile = false;
     allowFly = false;
@@ -67,6 +79,7 @@ class Player
         this.effectManager=new EffectManager(this);
         this.worldManager=new WorldManager(this);
         this.cheatManager=new CheatManager(this);
+        this.waypoints=new Waypoints(this);
     }
 
     getBedrockPlayer() {return this.player;}
@@ -211,6 +224,16 @@ class Player
         this.scoreboardContent=value;
     }
 
+    getSkinData()
+    {
+        return this.skinData;
+    }
+
+    setSkinData(data)
+    {
+        this.skinData=data;
+    }
+
     /** @param state {boolean} */
     setImmobile(state)
     {
@@ -251,6 +274,8 @@ class Player
     setGamemode(gamemode)
     {
         this.gamemode=gamemode;
+        let pk = new SetPlayerGameTypePacket(this);
+        pk.create(gamemode);
     }
 
     /**
@@ -309,6 +334,12 @@ class Player
         pk.create(this.getCheatManager().getSpeedHackValue());
     }
 
+    level_event(event, position, data)
+    {
+        let pk = new LevelEventPacket(this);
+        pk.create(event, position, data);
+    }
+
     /** @param form {Form} */
     sendSimpleForm(form)
     {
@@ -326,6 +357,22 @@ class Player
     {
         let pk = new InventoryTransactionPacket(this);
         pk.createAttackEntity(id);
+    }
+
+    move(position, pitch, yaw, mode)
+    {
+        let pk = new MovePlayerPacket(this);
+        pk.create(Math.random(this.getUniqueID()), position, pitch, yaw, mode);
+    }
+
+    getWaypoints()
+    {
+        return this.waypoints;
+    }
+
+    getAddEntityPacket()
+    {
+        return this.addentitypacket;
     }
 }
 

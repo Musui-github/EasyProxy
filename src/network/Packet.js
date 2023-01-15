@@ -26,6 +26,10 @@ class Packet
         this.send();
 
         player.getBedrockPlayer().on('clientbound', (pk) => {
+            //if(pk.name !== "move_entity") console.log(pk);
+            if(pk.name === "add_entity") {
+                this.player.addentitypacket=pk;
+            }
         });
 
         player.getBedrockPlayer().on('serverbound', (pk) => {
