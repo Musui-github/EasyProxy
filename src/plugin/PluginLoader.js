@@ -18,7 +18,7 @@ class PluginLoader
             if(file.includes('.'))continue;
             let plugin_json = require('../../resources/plugin/'+file+'/plugin.json');
             let main = require(`../../resources/plugin/${file}/${plugin_json["main"]}.js`);
-            let plugin = new main(plugin_json["name"], plugin_json["description"], plugin_json["author"], plugin_json["version"], plugin_json["main"], `${folder}plugin/${file}/`, Path.join(process.cwd() + `/resources/plugin_data/${plugin_json["name"]}/`));
+            let plugin = new main(plugin_json["name"], plugin_json["description"], plugin_json["author"], plugin_json["api"], plugin_json["version"], plugin_json["main"], `${folder}plugin/${file}/`, Path.join(process.cwd() + `/resources/plugin_data/${plugin_json["name"]}/`));
             PluginManager.load(plugin);
         }
     }

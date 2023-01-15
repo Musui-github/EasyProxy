@@ -1,19 +1,41 @@
 class Position
 {
-    obj;
+    x;
+    y;
+    z;
+
+    yaw;
+    pitch;
+
+    world;
 
     constructor(obj)
     {
-        this.obj=obj;
+        this.x=obj.x;
+        this.y=obj.y;
+        this.z=obj.z;
+
+        this.yaw=obj.yaw;
+        this.pitch=obj.pitch;
+
+        this.world=obj.world;
     }
 
-    getX() {return this.obj.x;}
-    getY() {return this.obj.y;}
-    getZ() {return this.obj.z;}
+    getX() {return this.x;}
+    getY() {return this.y;}
+    getZ() {return this.z;}
 
-    getYaw() {return this.obj.yaw;}
-    getPitch() {return this.obj.pitch;}
+    /**
+     * @return {{x: *, y: *, z: *}}
+     */
+    getPos()
+    {
+        return {x: this.getX(), y: this.getY(), z: this.getZ()};
+    }
 
-    getWorld() {return this.obj.world;}
+    getYaw() {return this.yaw;}
+    getPitch() {return this.pitch;}
+
+    getWorld() {return this.world;}
 }
 module.exports = Position;

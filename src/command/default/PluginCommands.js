@@ -16,7 +16,7 @@ class PluginCommands extends Command
             plugins.push(plugin.getName());
         });
         let list = plugins.join("§f, §d");
-        Player.sendMessage(TextFormat.getPrefix() + `Here is the plugin list: §d${list}`);
+        Player.sendMessage(TextFormat.getPrefix() + `§aHere is the plugin list §2(${plugins.length})§a: §d${list}`);
     }
 }
 module.exports = PluginCommands;

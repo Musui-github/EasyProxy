@@ -1,6 +1,7 @@
 class SetTimePacket
 {
     player;
+    time;
 
     /** @param Player {Player} */
     constructor(Player)
@@ -11,10 +12,15 @@ class SetTimePacket
     /**
      * @param time {number}
      */
-    create(time)
+    setTime(time)
+    {
+        this.time=time;
+    }
+
+    create()
     {
         this.player.getBedrockPlayer().queue("set_time", {
-            time: time
+            time: this.time
         });
     }
 }

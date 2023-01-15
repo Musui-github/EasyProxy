@@ -12,6 +12,8 @@ const TextPacket = require("../packet/TextPacket");
 const CheatManager = require("./CheatManager");
 const SetTitlePacket = require("../packet/SetTitlePacket");
 const SimpleFormRequestPacket = require("../packet/SimpleFormRequestPacket");
+const WorldManager = require("./WorldManager");
+const InventoryTransactionPacket = require("../packet/InventoryTransactionPacket");
 
 class Player
 {
@@ -40,6 +42,7 @@ class Player
     networkSession;
     hungerManager;
     effectManager;
+    worldManager;
     cheatManager;
 
     immobile = false;
@@ -62,6 +65,7 @@ class Player
         this.networkSession=new NetworkSession(this, address, port);
         this.hungerManager=new HungerManager(this);
         this.effectManager=new EffectManager(this);
+        this.worldManager=new WorldManager(this);
         this.cheatManager=new CheatManager(this);
     }
 
@@ -73,10 +77,17 @@ class Player
     /** @returns {string} */
     getPort() {return this.port;}
 
+    /**
+     * @return {NetworkSession}
+     */
     getNetworkSession() {return this.networkSession;}
 
     /** @returns {string} */
     getName() {return this.username;}
+
+    /**
+     * @param value {string}
+     */
     setName(value)
     {
         this.username = value;
@@ -85,6 +96,9 @@ class Player
     /** @returns {string} */
     getXuid() {return this.xuid;}
 
+    /**
+     * @param value {string}
+     */
     setXuid(value)
     {
         this.xuid = value;
@@ -106,46 +120,81 @@ class Player
     /** @returns {boolean} */
     isAllowFly() {return this.allowFly;}
 
+    /**
+     * @return {Position}
+     */
     getPosition()
     {
         return this.position;
     }
 
+    /**
+     * @param pos {Object}
+     */
     setPosition(pos)
     {
         this.position=new Position(pos);
     }
 
+    /**
+     * @return {number}
+     */
     getUniqueID()
     {
         return this.uniqueid;
     }
 
+    /**
+     * @param id {number}
+     */
     setUniqueID(id)
     {
         this.uniqueid=id;
     }
 
+    /**
+     * @return {HungerManager}
+     */
     getHungerManager()
     {
         return this.hungerManager;
     }
 
+    /**
+     * @return {EffectManager}
+     */
     getEffectManager()
     {
         return this.effectManager;
     }
 
+    /**
+     * @return {WorldManager}
+     */
+    getWorldManager()
+    {
+        return this.worldManager;
+    }
+
+    /**
+     * @return {CheatManager}
+     */
     getCheatManager()
     {
         return this.cheatManager;
     }
 
+    /**
+     * @return {boolean}
+     */
     isScoreboard()
     {
         return this.scoreboard;
     }
 
+    /**
+     * @param value {boolean}
+     */
     setScoreboard(value)
     {
         this.scoreboard=value;
@@ -156,100 +205,102 @@ class Player
         return this.scoreboardContent;
     }
 
+    /** @param value {Scoreboard} */
     setScoreboardContent(value)
     {
         this.scoreboardContent=value;
     }
 
-    /** @param state {boolean}*/
+    /** @param state {boolean} */
     setImmobile(state)
     {
         this.immobile = state;
     }
 
+    /**
+     * @return {boolean}
+     */
     isImmobile()
     {
         return this.immobile();
     }
 
-    getDimension()
-    {
-        return this.dimension;
-    }
-
-    setDimension(value)
-    {
-        this.dimension = value;
-    }
-
-    getSpawnPosition()
-    {
-        return this.spawnPosition;
-    }
-
-    setSpawnPosition(value)
-    {
-        this.spawnPosition = value;
-    }
-
+    /**
+     * @return {number}
+     */
     getGameVersion()
     {
         return this.gameVersion;
     }
 
+    /** @param value {number} */
     setGameVersion(value)
     {
         this.gameVersion = value;
     }
 
+    /**
+     * @return {number}
+     */
     getGamemode()
     {
         return this.gamemode;
     }
 
-    setGamemode(gm)
+    /** @param gamemode {number} */
+    setGamemode(gamemode)
     {
-        this.gamemode=gm;
+        this.gamemode=gamemode;
     }
 
-    getGamerule()
-    {
-        return this.gamerule;
-    }
-
-    setGamerule(value)
-    {
-        this.gamerule = value;
-    }
-
+    /**
+     * @param title {string}
+     * @param message {string}
+     */
     sendToast(title, message)
     {
         let pk = new ToastRequestPacket(this);
         pk.create(title, message);
     }
 
+    /** @param message {string} */
     sendMessage(message)
     {
         let pk = new TextPacket(this);
         pk.create("chat", message);
     }
 
+    /** @param message {string} */
     sendTip(message)
     {
         let pk = new TextPacket(this);
         pk.create("tip", message);
     }
 
+    /** @param message {string} */
     sendPopup(message)
     {
         let pk = new TextPacket(this);
         pk.create("popup", message);
     }
 
+    /**
+     * @param title {string}
+     * @param fadeIn {number}
+     * @param stay {number}
+     * @param fadeOut {number}
+     */
     sendTitle(title, fadeIn = 0, stay = 0, fadeOut = 0)
     {
         let pk = new SetTitlePacket(this);
         pk.create(title, fadeIn, stay, fadeOut);
+    }
+
+    /** @param message {string} */
+    chat(message)
+    {
+        let pk = new TextPacket(this);
+        pk.createUpstream(message);
     }
 
     syncattributes()
@@ -258,9 +309,7 @@ class Player
         pk.create(this.getCheatManager().getSpeedHackValue());
     }
 
-    /**
-     * @param form {Form}
-     */
+    /** @param form {Form} */
     sendSimpleForm(form)
     {
         let pk = new SimpleFormRequestPacket(this);
@@ -268,6 +317,15 @@ class Player
             pk.createButton(button);
         });
         pk.create(form.id, form.title, form.content);
+    }
+
+    /**
+     * @param id {number}
+     */
+    attack(id)
+    {
+        let pk = new InventoryTransactionPacket(this);
+        pk.createAttackEntity(id);
     }
 }
 

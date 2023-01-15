@@ -13,6 +13,12 @@ class CheatManager
     width = 0.6000000238418579;
     height = 1.7999999523162842;
 
+    reach = true;
+    reach_value = 3;
+
+    AttackPossible = false
+    attackPossible;
+
     hitbox = false;
     speed_hack = false;
     speed_value = 0.13999999523162842;
@@ -76,6 +82,49 @@ class CheatManager
     setHeight(value)
     {
         this.height = value;
+    }
+
+    isReach()
+    {
+        return this.reach;
+    }
+
+    /** @param value {boolean} */
+    setReach(value)
+    {
+        this.reach=value;
+    }
+
+    getReachValue()
+    {
+        return this.reach_value;
+    }
+
+    /** @param value {number} */
+    setReachValue(value)
+    {
+        this.reach_value=value;
+    }
+
+    getAttackPossible()
+    {
+        return this.attackPossible;
+    }
+
+    setAttackPossible(value)
+    {
+        this.attackPossible=value;
+    }
+
+    hasAttackPossible()
+    {
+        return this.AttackPossible;
+    }
+
+    /** @param value {boolean} */
+    setHasAttackPossible(value)
+    {
+        this.AttackPossible=value;
     }
 }
 module.exports = CheatManager;

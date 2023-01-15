@@ -7,16 +7,18 @@ class PluginBase
     name;
     description;
     author;
+    api;
     version;
     main;
     pluginFolder;
     dataFolder;
 
-    constructor(name, description, author, version, main, pluginFolder, dataFolder)
+    constructor(name, description, author, api, version, main, pluginFolder, dataFolder)
     {
         this.name=name;
         this.description=description;
         this.author=author;
+        this.api=api;
         this.version=version;
         this.main=main;
         this.pluginFolder=pluginFolder;
@@ -35,6 +37,21 @@ class PluginBase
     getDescription()
     {
         return this.description;
+    }
+
+    getAuthor()
+    {
+        return this.author;
+    }
+
+    getApi()
+    {
+        return this.api;
+    }
+
+    getVersion()
+    {
+        return this.version;
     }
 
     getDataFolder()

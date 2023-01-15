@@ -1,0 +1,8 @@
+{
+  "name": "EasyProxy",
+  "version": "1.0.0",
+  "dependencies": {
+    "bedrock-protocol": "^3.22.0",
+    "deg2rad": "^1.0.0"
+  }
+}

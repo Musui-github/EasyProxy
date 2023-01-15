@@ -2,6 +2,8 @@ const EasyProxyInfo = require("../../EasyProxyInfo");
 const PlayerJoinEvent = require("../../event/list/send/PlayerJoinEvent");
 const EventManager = require("../../event/EventManager");
 const PlayerCommandProcessEvent = require("../../event/list/send/PlayerCommandProcessEvent");
+const VersionInfo = require("../../VersionInfo");
+const TextFormat = require("../../format/TextFormat");
 module.exports = {
     name: "set_local_player_as_initialized",
 
@@ -11,13 +13,9 @@ module.exports = {
      */
     send(Player, packet)
     {
-        Player.sendToast('Welcome!', 'Thank you for supporting the §eEasyProxy§r project! §c<3');
-        Player.sendMessage("\nWelcome to the §6EasyProxy §r!");
-        Player.sendMessage(" §fDiscord: §6" + EasyProxyInfo.Discord);
-        Player.sendMessage(" §fAuthors: §6" + EasyProxyInfo.Authors);
-        Player.sendMessage("§r");
-        Player.sendMessage("§7§oFor help, simply run §e//proxy§7, or for more information you can make a ticket on our discord server!");
-        Player.sendMessage("§r");
+        Player.sendMessage(TextFormat.STRIKETHROUGH);
+        Player.sendMessage(TextFormat.ITALIC + TextFormat.GRAY + `This proxy is currently running the ${VersionInfo.VERSION} version of ${VersionInfo.NAME}!`);
+        Player.sendMessage(TextFormat.STRIKETHROUGH);
 
         const EventManager = require("../../event/EventManager");
         let events = EventManager.getALl();
