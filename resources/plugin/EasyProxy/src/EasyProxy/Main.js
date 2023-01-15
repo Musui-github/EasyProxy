@@ -7,9 +7,18 @@ class Main extends PluginBase
 {
     onEnable() {
         super.onEnable();
-        CommandMap.getInstance().register(this.getDataPlugin() + '/src/EasyProxy/commands/NightVisionCommand.js');
-        CommandMap.getInstance().register(this.getDataPlugin() + '/src/EasyProxy/commands/TimeCommand.js');
-        CommandMap.getInstance().register(this.getDataPlugin() + '/src/EasyProxy/commands/HitboxCommand.js');
+        let commands = [
+            "NightVisionCommand",
+            "TimeCommand",
+            "HitboxCommand",
+            "ReachCommand",
+            "TimerCommand",
+            "FreeCamCommand",
+            "WaypointCommand"
+        ];
+        commands.forEach(command => {
+            CommandMap.getInstance().register(this.getDataPlugin() + `/src/EasyProxy/commands/${command}.js`);
+        })
         EventManager.register(new EventListener());
     }
 }

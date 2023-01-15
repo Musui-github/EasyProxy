@@ -18,6 +18,8 @@ class ScoreboardTask extends Task
         scoreboard.addLine(" §d" + player.getName());
         scoreboard.addLine(" §8| §fHitbox Enabled: §d" + player.getCheatManager().isHitbox());
         scoreboard.addLine(" §8| §fSpeedhack Enabled: §d" + player.getCheatManager().isSpeedHack());
+        scoreboard.addLine(" §8| §fReach Enabled: §d" + player.getCheatManager().isReach());
+        scoreboard.addLine(" §8| §fFreecam Enabled: §d" + player.getCheatManager().isFreecam());
         scoreboard.addLine("§a");
         scoreboard.addLine(" §dProxyInfo");
         scoreboard.addLine(" §8| §fPlayers: §d" + ServerInfo.getServer().getPlayers().length);
