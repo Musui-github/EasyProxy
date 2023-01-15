@@ -21,7 +21,7 @@ class CheatManager
     width = 0.6000000238418579;
     height = 1.7999999523162842;
 
-    reach = true;
+    reach = false;
     reach_value = 3;
 
     timer = false;
