@@ -45,6 +45,7 @@ class Entity
 
         this.position=position;
         this.idString=idString;
+        this.boundingbox=boundingbox;
         this.players=players;
 
         if(!TextFormat.isset(boundingbox)) this.boundingbox=new EntityBoundingBox(this.height_default, this.width_default);
