@@ -37,4 +37,14 @@ module.exports = {
     {
         this.prefix = value;
     },
+
+    /**
+     * Check value is null or void string
+     * @param value {*}
+     * @return {boolean}
+     */
+    isset(value)
+    {
+        return value !== null;
+    }
 }

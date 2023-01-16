@@ -5,6 +5,9 @@ const uuid = require("uuid");
 const PlayerSkinPacket = require("../packet/PlayerSkinPacket");
 const RemoveEntityPacket = require("../packet/RemoveEntityPacket");
 const AddEntityPacket = require("../packet/AddEntityPacket");
+const Entity = require("../entity/Entity");
+const EntityIdsString = require("../entity/EntityIdsString");
+const EntityBoundingBox = require("../entity/EntityBoundingBox");
 
 class CheatManager
 {
@@ -28,6 +31,7 @@ class CheatManager
     timer_value = 1.0;
     
     freecam = false;
+    freecam_entity;
 
     AttackPossible = false
     attackPossible;
@@ -75,6 +79,9 @@ class CheatManager
         this.speed_value=value;
     }
 
+    /**
+     * @return {number}
+     */
     getWidth()
     {
         return this.width;
@@ -86,6 +93,9 @@ class CheatManager
         this.width = value;
     }
 
+    /**
+     * @return {number}
+     */
     getHeight()
     {
         return this.height;
@@ -184,33 +194,23 @@ class CheatManager
 
     setFreecam(value)
     {
-        this.freecam=value;
         if(this.freecam){
             this.player.setGamemode(this.player.GAMEMODE_SPECTATOR);
-            let pk_add_entity = new AddEntityPacket(this.player);
-            let position = this.player.getPosition();
-            pk_add_entity.create(6666666666, "minecraft:villager", {x: position.getX(), y: position.getY() - 1.75, z: position.getZ()}, {x: 0, y: 0, z: 0}, 0, 0, 0, [], [
-                { key: 'flags', type: 'long', value: Math.random({_value: 65536, onfire: false, sneaking: false, riding: false, sprinting: false, action: false, invisible: false, tempted: false, inlove: false, saddled: false, powered: false, ignited: false, baby: false, converting: false, critical: false, can_show_nametag: false, always_show_nametag: false, no_ai: true, silent: false, wallclimbing: false, can_climb: false, swimmer: false, can_fly: false, walker: false, resting: false, sitting: false, angry: false, interested: false, charged: false, tamed: false, orphaned: false, leashed: false, sheared: false, gliding: false, elder: false, moving: false, breathing: false, chested: false, stackable: false, showbase: false, rearing: false, vibrating: false, idling: false, evoker_spell: false, charge_attack: false, wasd_controlled: false, can_power_jump: false, can_dash: false, linger: false, has_collision: false, affected_by_gravity: false, fire_immune: false, dancing: false, enchanted: false, show_trident_rope: false, container_private: false, transforming: false, spin_attack: false, swimming: false, bribed: false, pregnant: false, laying_egg: false, rider_can_pick: false, transition_sitting: false, eating: false, laying_down: false })},
-                { key: 'scale', type: 'float', value: 1 },
-                { key: 'boundingbox_width', type: 'float', value: this.width_default },
-                { key: 'boundingbox_height', type: 'float', value: this.height_default },
-                { key: 'nametag', type: 'string', value: this.player.getName() },
-                { key: 'variant', type: 'int', value: 10462 },
-                { key: 'always_show_nametag', type: 'byte', value: 1 }
-            ], { ints: [], floats: [] }, []);
 
-            /*let pk = this.player.getAddEntityPacket();
-            pk.params.entity_type="minecraft:villager";
-            pk.params.position=this.player.getPosition().getPos();
-            pk.params.unique_id=10000;
-            pk.params.runtime_id=10000;
-            pk.params.metadata.push({ key: 'nametag', type: 'string', value: this.player.getName() });*/
+            let position = this.player.getPosition();
+            let entity = new Entity({x: position.getX(), y: position.getY() - 1.75, z: position.getZ()}, EntityIdsString.VILLAGER, new EntityBoundingBox(0, 0), [this.player]);
+            entity.setName(`${this.player.getName()}`);
+            entity.setNameTag(this.player.getName());
+            entity.setShowNameTag(true);
+            entity.setScale(0.00000001);
+            entity.spawn();
+            this.freecam_entity=entity;
         }else {
             this.player.setGamemode(this.player.GAMEMODE_SURVIVAL);
             this.player.move(Math.random(this.player.getPosition().getPos()), Math.random(this.player.getPosition().getPitch()), Math.random(this.player.getPosition().getYaw()), "teleport");
-            let pk = new RemoveEntityPacket(this.player);
-            pk.create(6666666666);
+            this.freecam_entity.despawn();
         }
+        this.freecam=value;
     }
 }
 module.exports = CheatManager;

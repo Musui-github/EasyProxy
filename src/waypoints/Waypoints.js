@@ -79,9 +79,13 @@ class Waypoints
     {
         let includes = false;
         this.waypoints.forEach(waypoint => {
+<<<<<<< Updated upstream
             if(waypoint.name === name) {
                 includes = true;
             }
+=======
+            if(waypoint.name === name) includes = true;
+>>>>>>> Stashed changes
         });
         return includes;
     }
