@@ -81,7 +81,6 @@ class Waypoints
         this.waypoints.forEach(waypoint => {
             if(waypoint.name === name) {
                 includes = true;
-                return;
             }
         });
         return includes;
