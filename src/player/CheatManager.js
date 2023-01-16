@@ -194,7 +194,7 @@ class CheatManager
 
     setFreecam(value)
     {
-        if(this.freecam){
+        if(value){
             this.player.setGamemode(this.player.GAMEMODE_SPECTATOR);
 
             let position = this.player.getPosition();
