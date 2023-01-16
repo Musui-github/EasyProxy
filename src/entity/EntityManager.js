@@ -13,7 +13,7 @@ module.exports = {
         if(existEntityByID(entity.getID()))return console.debug(`[ENTITY] : ${entity.getName()} is already registered!`);
         entities.push(entity);
     },
-    
+
     /**
      * @param entity {Entity}
      */

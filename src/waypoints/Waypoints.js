@@ -6,6 +6,10 @@ const {Player} = require("../player/Player");
 const RemoveEntityPacket = require("../packet/RemoveEntityPacket");
 const Console = require("console");
 const TextFormat = require("../format/TextFormat");
+const Entity = require("../entity/Entity");
+const EntityIdsString = require("../entity/EntityIdsString");
+const EntityBoundingBox = require("../entity/EntityBoundingBox");
+const EntityManager = require("../entity/EntityManager");
 
 class Waypoints
 {
@@ -52,9 +56,12 @@ class Waypoints
     {
         let includes = false;
         this.waypoints.forEach(waypoint => {
+<<<<<<< Updated upstream
             if(waypoint.name === name) {
                 includes = true;
             }
+=======
+>>>>>>> Stashed changes
             if(waypoint.name === name) includes = true;
         });
         return includes;
