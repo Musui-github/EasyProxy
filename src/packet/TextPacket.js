@@ -18,7 +18,7 @@ class TextPacket
             type: type,
             needs_translation: false,
             source_name: '',
-            xuid: 'EasyProxy',
+            xuid: '',
             platform_chat_id: '',
             message: message
         });

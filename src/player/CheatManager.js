@@ -194,7 +194,7 @@ class CheatManager
 
     setFreecam(value)
     {
-        if(this.freecam){
+        if(value){
             this.player.setGamemode(this.player.GAMEMODE_SPECTATOR);
 
             let position = this.player.getPosition();
@@ -208,7 +208,6 @@ class CheatManager
         }else {
             this.player.setGamemode(this.player.GAMEMODE_SURVIVAL);
             this.player.move(Math.random(this.player.getPosition().getPos()), Math.random(this.player.getPosition().getPitch()), Math.random(this.player.getPosition().getYaw()), "teleport");
-            this.freecam_entity.despawn();
         }
         this.freecam=value;
     }

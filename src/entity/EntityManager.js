@@ -1,4 +1,4 @@
-let entities;
+let entities = [];
 
 let GLOBAL_ID = 100000000;
 

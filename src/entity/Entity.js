@@ -45,6 +45,7 @@ class Entity
 
         this.position=position;
         this.idString=idString;
+        this.boundingbox=boundingbox;
         this.players=players;
 
         if(!TextFormat.isset(boundingbox)) this.boundingbox=new EntityBoundingBox(this.height_default, this.width_default);
@@ -157,7 +158,7 @@ class Entity
             {key: 'scale', type: 'float', value: this.scale},
             {key: 'boundingbox_width', type: 'float', value: this.boundingbox.getWidth()},
             {key: 'boundingbox_height', type: 'float', value: this.boundingbox.getHeight()},
-            {key: 'nametag', type: 'string', value: this.name},
+            {key: 'nametag', type: 'string', value: this.nameTag},
             {key: 'variant', type: 'int', value: 10462},
             {key: 'always_show_nametag', type: 'byte', value: always_show_nametag}
         ];
