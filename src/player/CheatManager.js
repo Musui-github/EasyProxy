@@ -8,6 +8,7 @@ const AddEntityPacket = require("../packet/AddEntityPacket");
 const Entity = require("../entity/Entity");
 const EntityIdsString = require("../entity/EntityIdsString");
 const EntityBoundingBox = require("../entity/EntityBoundingBox");
+const Position = require("../Position");
 
 class CheatManager
 {
@@ -195,19 +196,20 @@ class CheatManager
     setFreecam(value)
     {
         if(value){
-            this.player.setGamemode(this.player.GAMEMODE_SPECTATOR);
-
             let position = this.player.getPosition();
-            let entity = new Entity({x: position.getX(), y: position.getY() - 1.75, z: position.getZ()}, EntityIdsString.VILLAGER, new EntityBoundingBox(0, 0), [this.player]);
+            let entity = new Entity(new Position({x: position.x, y: position.y - 1.60, z: position.z, pitch: position.pitch, yaw: position.yaw, world: position.world}), EntityIdsString.VILLAGER, null, [this.player]);
             entity.setName(`${this.player.getName()}`);
             entity.setNameTag(this.player.getName());
             entity.setShowNameTag(true);
-            entity.setScale(0.00000001);
             entity.spawn();
             this.freecam_entity=entity;
+
+            this.player.setGamemode(this.player.GAMEMODE_SPECTATOR);
+
         }else {
             this.player.setGamemode(this.player.GAMEMODE_SURVIVAL);
             this.player.move(Math.random(this.player.getPosition().getPos()), Math.random(this.player.getPosition().getPitch()), Math.random(this.player.getPosition().getYaw()), "teleport");
+            this.freecam_entity.despawn();
         }
         this.freecam=value;
     }

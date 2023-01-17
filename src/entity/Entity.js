@@ -6,21 +6,21 @@ const RemoveEntityPacket = require("../packet/RemoveEntityPacket");
 
 class Entity
 {
-    id;
+    id = 0;
 
     name = "Unknown";
     scale = 1;
 
-    nameTag;
+    nameTag = "Unknown";
     showNameTag = false;
-    idString;
+    idString = "minecraft:villager";
 
     position;
-    pitch;
-    yaw;
-    body_yaw;
+    pitch = 0;
+    yaw = 0;
+    body_yaw = 0;
 
-    metadata;
+    metadata = [];
 
     /**
      * defaults:

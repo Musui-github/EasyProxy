@@ -35,6 +35,30 @@ class Position
         return {x: this.getX(), y: this.getY(), z: this.getZ()};
     }
 
+    /**
+     * @param value {number}
+     */
+    divizePos(value)
+    {
+        this.x=this.x/value;
+        this.y=this.y/value;
+        this.z=this.z/value;
+    }
+
+    substractPos(x, y, z)
+    {
+        this.x=this.x-x;
+        this.y=this.y-y;
+        this.z=this.z-z;
+    }
+
+    multiplyPos(x, y, z)
+    {
+        this.x=this.x*x;
+        this.y=this.y*y;
+        this.z=this.z*z;
+    }
+
     getYaw() {return this.yaw;}
     getPitch() {return this.pitch;}
 

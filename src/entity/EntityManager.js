@@ -1,6 +1,6 @@
 let entities = [];
 
-let GLOBAL_ID = 100000000;
+let GLOBAL_ID = 9000000000;
 
 module.exports = {
 
