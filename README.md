@@ -32,6 +32,7 @@ No, everything is totally free, if you want to use it no worries, but it is obvi
 - [@Zwuiix-cmd](https://github.com/Zwuiix-cmd)
 - [@Azalee](https://github.com/Zaelee)
 - [@UCS](https://github.com/UnNyanCat)
+- [@Enzo](https://github.com/Nya-Enzo)
 
 ## Licensing information
 This project is licensed under LGPL-3.0. Please see the [LICENSE](/LICENSE) file for details.
