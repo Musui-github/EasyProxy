@@ -20,6 +20,7 @@ const Waypoints = require("../waypoints/Waypoints");
 const MovePlayerPacket = require("../packet/MovePlayerPacket");
 const EasyProxyInfo = require("../EasyProxyInfo");
 const UpdateAbilitiesPacket = require("../packet/UpdateAbilitiesPacket");
+const HealthManager = require("./HealthManager");
 
 class Player
 {
@@ -56,6 +57,7 @@ class Player
     effectManager;
     worldManager;
     cheatManager;
+    healthManager;
 
     abilities = {};
 
@@ -82,6 +84,7 @@ class Player
         this.worldManager=new WorldManager(this);
         this.cheatManager=new CheatManager(this);
         this.waypoints=new Waypoints(this);
+        this.healthManager=new HealthManager(this);
     }
 
     getBedrockPlayer() {return this.player;}
@@ -345,7 +348,7 @@ class Player
         pk.create(event, position, data);
     }
 
-    /** @param form {Form} */
+    /** @param form {SimpleForm} */
     sendSimpleForm(form)
     {
         let pk = new SimpleFormRequestPacket(this);
@@ -389,6 +392,11 @@ class Player
     setAbilities(abilities)
     {
         this.abilities=abilities;
+    }
+
+    getHealthManager()
+    {
+        return this.healthManager;
     }
 }
 

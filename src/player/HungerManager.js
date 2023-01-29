@@ -4,7 +4,6 @@ class HungerManager
 
     food;
     saturation;
-    health;
 
     /** @param Player {Player} */
     constructor(Player)
@@ -12,7 +11,6 @@ class HungerManager
         this.player = Player;
         this.food = this.player.food;
         this.saturation = this.player.saturation;
-        this.health = this.player.health;
     }
 
     /** @returns {number} */
@@ -27,12 +25,6 @@ class HungerManager
         return this.saturation;
     }
 
-    /** @returns {number} */
-    getPlayerHealth()
-    {
-        return this.health;
-    }
-
     setPlayerHunger(number)
     {
         this.food = number;
@@ -43,12 +35,6 @@ class HungerManager
     {
         this.saturation = number;
         console.debug(`${this.player.username} saturation changed to ${number}`);
-    }
-
-    setPlayerHealth(number)
-    {
-        this.health = number;
-        console.debug(`${this.player.username} health changed to ${number}`);
     }
 }
 
