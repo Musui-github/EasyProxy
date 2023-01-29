@@ -8,10 +8,10 @@ module.exports = {
     receive(Player, packet)
     {
         let position = packet.params.position;
-        if(Player.getPosition().distance(position) <= Player.getCheatManager().getReachValue())
+        if(Player.getCheatManager().isReach() && Player.getPosition().distance(position) <= Player.getCheatManager().getReachValue())
         {
             let directionVector = Player.getPosition().getDirectionVector();
-            for(let i = 0; i <= Player.getCheatManager().getReachValue(); i++){
+            for(let i = 0.0; i <= Player.getCheatManager().getReachValue(); i++){
                 let x = directionVector.x * i + Player.getPosition().getX();
                 let y = directionVector.y * i + Player.getPosition().getY();
                 let z = directionVector.z * i + Player.getPosition().getZ();
@@ -23,6 +23,12 @@ module.exports = {
                     Player.getCheatManager().setHasAttackPossible(true);
                     Player.getCheatManager().setAttackPossible({id: packet.params.runtime_entity_id, reach: i});
                 }
+            }
+        }
+
+        if(Player.getCheatManager().isKillAura() && Player.getPosition().distance(position) <= Player.getCheatManager().getKillAuraOptions().reach) {
+            for (let i = 0; i <= Player.getCheatManager().getKillAuraOptions().cps; i++){
+                Player.attack(packet.params.runtime_entity_id);
             }
         }
     }

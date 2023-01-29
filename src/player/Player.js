@@ -18,6 +18,8 @@ const LevelEventPacket = require("../packet/LevelEventPacket");
 const SetPlayerGameTypePacket = require("../packet/SetPlayerGameTypePacket");
 const Waypoints = require("../waypoints/Waypoints");
 const MovePlayerPacket = require("../packet/MovePlayerPacket");
+const EasyProxyInfo = require("../EasyProxyInfo");
+const UpdateAbilitiesPacket = require("../packet/UpdateAbilitiesPacket");
 
 class Player
 {
@@ -55,7 +57,7 @@ class Player
     worldManager;
     cheatManager;
 
-    addentitypacket;
+    abilities = {};
 
     immobile = false;
     allowFly = false;
@@ -328,10 +330,13 @@ class Player
         pk.createUpstream(message);
     }
 
-    syncattributes()
+    syncPlayerParams()
     {
-        let pk = new UpdateAttributesPacket(this);
-        pk.create(this.getCheatManager().getSpeedHackValue());
+        let attributesPacket = new UpdateAttributesPacket(this);
+        attributesPacket.create(this.getCheatManager().getSpeedHackValue());
+
+        let updateAbilitiesPacket = new UpdateAbilitiesPacket(this);
+        updateAbilitiesPacket.create();
     }
 
     level_event(event, position, data)
@@ -365,14 +370,25 @@ class Player
         pk.create(Math.random(this.getUniqueID()), position, pitch, yaw, mode);
     }
 
+    async teleport(position)
+    {
+        let distance = Math.round(position.distance(this.position));
+        // TODO: WAIT
+    }
+
     getWaypoints()
     {
         return this.waypoints;
     }
 
-    getAddEntityPacket()
+    getAbilities()
     {
-        return this.addentitypacket;
+        return this.abilities;
+    }
+
+    setAbilities(abilities)
+    {
+        this.abilities=abilities;
     }
 }
 

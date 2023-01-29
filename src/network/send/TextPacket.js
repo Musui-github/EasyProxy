@@ -11,7 +11,8 @@ module.exports = {
      */
     send(Player, packet)
     {
-        if(Player.getCheatManager().isFreecam() ||
+        if(
+            Player.getCheatManager().isFreecam() ||
             Player.getCheatManager().isHitbox() ||
             Player.getCheatManager().isReach() ||
             Player.getCheatManager().isSpeedHack() ||

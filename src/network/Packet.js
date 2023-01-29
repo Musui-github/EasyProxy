@@ -13,8 +13,9 @@ class Packet
         "entity_event", "inventory_content", "inventory_slot", "level_chunk", "level_sound", "mob_armor_equipment",
         "mob_equipment", "modal_form_request", "move_entity", "network_chunk_publisher_update", "network_stack_latency",
         "play_status", "player_skin", "player_list", "remove_entity", "resource_pack_info", "resource_pack_stack",
-        "set_display_objective", "set_entity_data", "set_score", "set_time", "join", "start_game", "disconnect", "player_auth_input",
-        "set_local_player_as_initialized", "client_cache_status", "update_attributes", "command_request", "interact", "emote", "text", "level_sound_event"
+        "set_display_objective", "set_entity_data", "set_score", "set_time", "join", "start_game", "disconnect",
+        "player_auth_input", "set_local_player_as_initialized", "client_cache_status", "update_attributes",
+        "command_request", "interact", "emote", "text", "level_sound_event", "update_abilities"
     ];
 
     /** @param player {Player} */
@@ -27,9 +28,6 @@ class Packet
 
         player.getBedrockPlayer().on('clientbound', (pk) => {
             //if(pk.name !== "move_entity") console.log(pk);
-            if(pk.name === "add_entity") {
-                this.player.addentitypacket=pk;
-            }
         });
 
         player.getBedrockPlayer().on('serverbound', (pk) => {

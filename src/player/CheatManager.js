@@ -34,12 +34,21 @@ class CheatManager
     freecam = false;
     freecam_entity;
 
-    AttackPossible = false
+    AttackPossible = false;
     attackPossible;
+
+    killAura = false;
+    killAuraOptions = {reach: 3.0, cps: 1};
 
     hitbox = false;
     speed_hack = false;
     speed_value = 0.13999999523162842;
+
+    /**
+     * Default: 0.05000000074505806
+     */
+    fly = false;
+    fly_speed = 0.05000000074505806;
 
     constructor(Player)
     {
@@ -66,7 +75,7 @@ class CheatManager
     setSpeedHack(value)
     {
         this.speed_hack=value;
-        this.player.syncattributes();
+        this.player.syncPlayerParams();
     }
 
     getSpeedHackValue()
@@ -208,10 +217,56 @@ class CheatManager
 
         }else {
             this.player.setGamemode(this.player.GAMEMODE_SURVIVAL);
-            this.player.move(Math.random(this.player.getPosition().getPos()), Math.random(this.player.getPosition().getPitch()), Math.random(this.player.getPosition().getYaw()), "teleport");
+            this.player.move(Math.random(this.player.getPosition().getPos()), Math.random(this.player.getPosition().getPitch()), Math.random(this.player.getPosition().getYaw()), "normal");
             this.freecam_entity.despawn();
         }
         this.freecam=value;
+    }
+
+    isKillAura()
+    {
+        return this.killAura;
+    }
+
+    /** @param value {boolean} */
+    setKillAura(value)
+    {
+        this.killAura=value;
+    }
+
+    getKillAuraOptions()
+    {
+        return this.killAuraOptions;
+    }
+
+    setKillAuraOptions(options)
+    {
+        this.killAuraOptions=options;
+    }
+
+    isFly()
+    {
+        return this.fly;
+    }
+
+    setFly(value)
+    {
+        this.fly=value;
+        this.player.getAbilities().abilities[0].enabled.flying = value;
+        this.player.getAbilities().abilities[0].enabled.may_fly = value;
+        this.player.syncPlayerParams();
+    }
+
+    getFlySpeed()
+    {
+        return this.fly_speed;
+    }
+
+    setFlySpeed(value)
+    {
+        this.fly_speed = value;
+        this.player.getAbilities().abilities[0].fly_speed = value;
+        this.player.syncPlayerParams();
     }
 }
 module.exports = CheatManager;
