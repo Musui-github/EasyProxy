@@ -109,10 +109,10 @@ class Player
         this.inventory=new InventoryManager(this);
         this.hardManager=new HardManager(this);
 
-        initialPlayer.on('close', (packet) => {
+        /*initialPlayer.on('close', (packet) => {
             Logger.info(getLangConfig()["player"]["remove-player"].replace("{PLAYER}", this.username));
             ServerInfo.getServer().removePlayer(this.username);
-        });
+        });*/
     }
 
     getBedrockPlayer() {return this.player;}

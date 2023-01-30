@@ -13,9 +13,8 @@ class PluginHelpCommand extends Command
     {
         let pluginList = PluginManager.getAll();
         pluginList.forEach((plugin) => {
-            if(args[1] === plugin.getName()) {
+            if(args[1].toLowerCase() === plugin.getName().toLowerCase()) {
                 Player.sendMessage(TextFormat.getPrefix() + `§aHere is the description of the plugin: §f` + plugin.getDescription());
-                return;
             }
         });
     }

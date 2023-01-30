@@ -1,3 +1,17 @@
+/**
+ *
+ *  ███████╗ █████╗ ███████╗██╗   ██╗██████╗ ██████╗  ██████╗ ██╗  ██╗██╗   ██╗
+ *  ██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝╚██╗ ██╔╝
+ *  █████╗  ███████║███████╗ ╚████╔╝ ██████╔╝██████╔╝██║   ██║ ╚███╔╝  ╚████╔╝
+ *  ██╔══╝  ██╔══██║╚════██║  ╚██╔╝  ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗   ╚██╔╝
+ *  ███████╗██║  ██║███████║   ██║   ██║     ██║  ██║╚██████╔╝██╔╝ ██╗   ██║
+ *  ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝
+ *
+ *  Release by EasyProxy's Project!
+ *  Github: https://https://github.com/Zwuiix-cmd/EasyProxy
+ *
+ */
+
 const AddPlayerPacket = require("../packet/AddPlayerPacket");
 const UUIDGenerator = require("uuid");
 const PlayerSkinPacket = require("../packet/PlayerSkinPacket");

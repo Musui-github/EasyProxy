@@ -17,22 +17,19 @@ No, everything is totally free, if you want to use it no worries, but it is obvi
 
 ## How to use ?
 - [Documentation](https://github.com/Zwuiix-cmd/EasyProxy/help/DOCS.MD)
-- [Installation](https://github.com/Zwuiix-cmd/EasyProxy/blob/V1/help/INSTALL.MD)
-- [Plugin Creation](https://github.com/Zwuiix-cmd/EasyProxy/blob/V1/help/PLUGIN.MD)
+- [Installation](https://github.com/Zwuiix-cmd/EasyProxy/help/INSTALL.MD)
+- [Plugin Creation](https://github.com/Zwuiix-cmd/EasyProxy/help/PLUGIN.MD)
 
 ## For developers
-- [Example Plugin](https://github.com/Zwuiix-cmd/EasyProxy/blob/V1/help/for-dev/Example-Plugin/)
-- [Scoreboard Example](https://github.com/Zwuiix-cmd/EasyProxy/blob/V1/help/for-dev/ScoreboardExample/)
-- [JoinForm](https://github.com/Zwuiix-cmd/EasyProxy/blob/V1/help/for-dev/JoinForm/)
+- [Example Plugin](https://github.com/Zwuiix-cmd/EasyProxy/help/for-dev/Example-Plugin.MD)
+- [Scoreboard Example](https://github.com/Zwuiix-cmd/EasyProxy/help/for-dev/ScoreboardExample.MD)
 
 ## Donate
 - [Paypal](https://paypal.me/EasyProxy)
 
 ## Contributors
 - [@Zwuiix-cmd](https://github.com/Zwuiix-cmd)
-- [@Azalee](https://github.com/Zaelee)
 - [@UCS](https://github.com/UnNyanCat)
-- [@Enzo](https://github.com/Nya-Enzo)
 
 ## Licensing information
 This project is licensed under LGPL-3.0. Please see the [LICENSE](/LICENSE) file for details.

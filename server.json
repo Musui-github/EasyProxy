@@ -3,6 +3,11 @@
   "port": 19132,
   "version": "1.19.50",
 
-  "destHost": "IP ADDRESS",
+  "motd": "Using EasyProxy",
+  "maxPlayers": 99,
+
+  "lang": "fra",
+
+  "destHost": "solaria.mcbe.fr",
   "destPort": 19132
 }

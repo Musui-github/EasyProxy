@@ -1,3 +1,17 @@
+/**
+ *
+ *  ███████╗ █████╗ ███████╗██╗   ██╗██████╗ ██████╗  ██████╗ ██╗  ██╗██╗   ██╗
+ *  ██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝╚██╗ ██╔╝
+ *  █████╗  ███████║███████╗ ╚████╔╝ ██████╔╝██████╔╝██║   ██║ ╚███╔╝  ╚████╔╝
+ *  ██╔══╝  ██╔══██║╚════██║  ╚██╔╝  ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗   ╚██╔╝
+ *  ███████╗██║  ██║███████║   ██║   ██║     ██║  ██║╚██████╔╝██╔╝ ██╗   ██║
+ *  ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝
+ *
+ *  Release by EasyProxy's Project!
+ *  Github: https://https://github.com/Zwuiix-cmd/EasyProxy
+ *
+ */
+
 const {Player} = require("../player/Player");
 
 class SetEntityMotionPacket
@@ -30,7 +44,6 @@ class SetEntityMotionPacket
 
     send()
     {
-        console.log('sended!')
         this.player.getBedrockPlayer().queue('set_entity_motion', {
             runtime_entity_id: this.runtime_id,
             velocity: this.velocity

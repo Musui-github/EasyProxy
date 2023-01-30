@@ -1,3 +1,17 @@
+/**
+ *
+ *  ███████╗ █████╗ ███████╗██╗   ██╗██████╗ ██████╗  ██████╗ ██╗  ██╗██╗   ██╗
+ *  ██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝╚██╗ ██╔╝
+ *  █████╗  ███████║███████╗ ╚████╔╝ ██████╔╝██████╔╝██║   ██║ ╚███╔╝  ╚████╔╝
+ *  ██╔══╝  ██╔══██║╚════██║  ╚██╔╝  ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗   ╚██╔╝
+ *  ███████╗██║  ██║███████║   ██║   ██║     ██║  ██║╚██████╔╝██╔╝ ██╗   ██║
+ *  ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝
+ *
+ *  Release by EasyProxy's Project!
+ *  Github: https://https://github.com/Zwuiix-cmd/EasyProxy
+ *
+ */
+
 const { Relay } = require('bedrock-protocol');
 const {Player} = require("./player/Player");
 
@@ -7,12 +21,18 @@ const Path = require("path");
 const PluginLoader = require("./plugin/PluginLoader");
 const {EasyProxy} = require("./EasyProxy");
 const EasyProxyInfo = require("./EasyProxyInfo");
+const Logger = require("./logger/Logger");
+const {getLangConfig} = require("./ServerInfo");
+const ServerInfo = require("./ServerInfo");
+const {THROWN_TRIDENT} = require("./entity/EntityIdsString");
+const Task = require("./task/Task");
+const TaskManager = require("./task/TaskManager");
 
 class Server
 {
     address = "127.0.0.1";
     port = 19132;
-    players = [];
+    players = new Map();
 
     initialRelay;
 
@@ -31,7 +51,7 @@ class Server
             motd: data["motd"] + " - " + data["version"],
             levelName: "world",
 
-            playersMax: 99,
+            playersMax: data["maxPlayers"],
             
             destination: {
                 host: data["destHost"],
@@ -40,8 +60,8 @@ class Server
         });
         this.initialRelay.listen();
 
-        console.log(`Server has been started successfully on ${data.address}:${data.port}!`);
-        console.log(`Destination: ${data["destHost"]}:${data["destPort"]}`);
+        Logger.notice(getLangConfig()["server-start"].replace('{SERVER}', `${data["address"]}:${data["port"]}`));
+        Logger.notice(getLangConfig()["destination"].replace('{DESTINATION-SERVER}', `${data["destHost"]}:${data["destPort"]}`));
 
         this.initialRelay.on('connect', player => {
             player.on('login', (packet) => {
@@ -49,9 +69,11 @@ class Server
                 user.setName(packet.user.displayName);
                 user.setXuid(packet.user.XUID);
                 this.addPlayer(user);
-                console.log(`Added player ${user.getName()}`);
+                Logger.info(getLangConfig()["player"]["add-player"].replace("{PLAYER}", user.getName()));
             });
         });
+
+        let task = new Task(TaskManager.TYPE_REPEAT, 5000, []);
 
         const commandFiles = fs.readdirSync(Path.join(process.cwd() + '/src/command/default')).filter(file => file.endsWith('.js'));
         for (const file of commandFiles) {
@@ -74,13 +96,18 @@ class Server
     /** @param player {Player} */
     addPlayer(player)
     {
-        if(!this.players[player]) this.players.push(player);
+        if(!this.players.get(player.getName())) this.players.set(player.getName(), player);
     }
 
     /** @param player {Player} */
     removePlayer(player)
     {
-        if(this.players[player]) this.players.pop(player);
+        if(this.players.get(player.getName())) this.players.delete(player.getName());
+    }
+
+    getPlayersByNameExact(name)
+    {
+        return this.players.get(name)
     }
 
     broadcastMessage(message)

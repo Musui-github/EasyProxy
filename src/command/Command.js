@@ -5,7 +5,7 @@ class Command
     usage;
     aliases = [];
 
-    constructor(name, description, usage, aliases)
+    constructor(name, description, usage = `${name} <args>`, aliases = [])
     {
         this.name=name;
         this.description=description;
