@@ -1,10 +1,23 @@
+/**
+ *
+ *  ███████╗ █████╗ ███████╗██╗   ██╗██████╗ ██████╗  ██████╗ ██╗  ██╗██╗   ██╗
+ *  ██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝╚██╗ ██╔╝
+ *  █████╗  ███████║███████╗ ╚████╔╝ ██████╔╝██████╔╝██║   ██║ ╚███╔╝  ╚████╔╝
+ *  ██╔══╝  ██╔══██║╚════██║  ╚██╔╝  ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗   ╚██╔╝
+ *  ███████╗██║  ██║███████║   ██║   ██║     ██║  ██║╚██████╔╝██╔╝ ██╗   ██║
+ *  ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝
+ *
+ *  Release by EasyProxy's Project!
+ *  Github: https://https://github.com/Zwuiix-cmd/EasyProxy
+ *
+ */
+
 class HungerManager
 {
     player;
 
     food;
     saturation;
-    health;
 
     /** @param Player {Player} */
     constructor(Player)
@@ -12,7 +25,6 @@ class HungerManager
         this.player = Player;
         this.food = this.player.food;
         this.saturation = this.player.saturation;
-        this.health = this.player.health;
     }
 
     /** @returns {number} */
@@ -26,13 +38,6 @@ class HungerManager
     {
         return this.saturation;
     }
-
-    /** @returns {number} */
-    getPlayerHealth()
-    {
-        return this.health;
-    }
-
     setPlayerHunger(number)
     {
         this.food = number;
@@ -41,11 +46,6 @@ class HungerManager
     setPlayerSaturation(number)
     {
         this.saturation = number;
-    }
-
-    setPlayerHealth(number)
-    {
-        this.health = number;
     }
 }
 

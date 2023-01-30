@@ -1,3 +1,17 @@
+/**
+ *
+ *  ███████╗ █████╗ ███████╗██╗   ██╗██████╗ ██████╗  ██████╗ ██╗  ██╗██╗   ██╗
+ *  ██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝██╔══██╗██╔══██╗██╔═══██╗╚██╗██╔╝╚██╗ ██╔╝
+ *  █████╗  ███████║███████╗ ╚████╔╝ ██████╔╝██████╔╝██║   ██║ ╚███╔╝  ╚████╔╝
+ *  ██╔══╝  ██╔══██║╚════██║  ╚██╔╝  ██╔═══╝ ██╔══██╗██║   ██║ ██╔██╗   ╚██╔╝
+ *  ███████╗██║  ██║███████║   ██║   ██║     ██║  ██║╚██████╔╝██╔╝ ██╗   ██║
+ *  ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝
+ *
+ *  Release by EasyProxy's Project!
+ *  Github: https://https://github.com/Zwuiix-cmd/EasyProxy
+ *
+ */
+
 const {NetworkSession} = require("../NetworkSession");
 const {HungerManager} = require("./HungerManager");
 const Packet = require("../network/Packet");
@@ -22,6 +36,9 @@ const EasyProxyInfo = require("../EasyProxyInfo");
 const UpdateAbilitiesPacket = require("../packet/UpdateAbilitiesPacket");
 const {InventoryManager} = require("./InventoryManager");
 const HardManager = require("./HardManager");
+const Logger = require("../logger/Logger");
+const {getLangConfig} = require("../ServerInfo");
+const ServerInfo = require("../ServerInfo");
 
 class Player
 {
@@ -68,6 +85,9 @@ class Player
 
     position = {x: 0, y: 0, z: 0, world: "world", pitch: 0, yaw: 0};
 
+    health = 20;
+    maxHealth = 20;
+
     /**
      * @param initialPlayer
      * @param address {string}
@@ -88,6 +108,11 @@ class Player
         this.waypoints=new Waypoints(this);
         this.inventory=new InventoryManager(this);
         this.hardManager=new HardManager(this);
+
+        initialPlayer.on('close', (packet) => {
+            Logger.info(getLangConfig()["player"]["remove-player"].replace("{PLAYER}", this.username));
+            ServerInfo.getServer().removePlayer(this.username);
+        });
     }
 
     getBedrockPlayer() {return this.player;}
@@ -136,6 +161,16 @@ class Player
     {
         this.allowFly=str;
         //TODO: SEND PACKET FOR ACTIVE/DEACTIVATE FLY
+    }
+
+    getHealth()
+    {
+        return this.health;
+    }
+
+    getMaxHealth()
+    {
+        return this.maxHealth;
     }
 
     /** @returns {boolean} */
