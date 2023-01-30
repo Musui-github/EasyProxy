@@ -5,6 +5,8 @@ const CommandMap = require('./command/CommandMap');
 const fs = require("fs");
 const Path = require("path");
 const PluginLoader = require("./plugin/PluginLoader");
+const {EasyProxy} = require("./EasyProxy");
+const EasyProxyInfo = require("./EasyProxyInfo");
 
 class Server
 {
@@ -19,19 +21,27 @@ class Server
         this.address=data["address"];
         this.port=data["port"];
 
+        EasyProxyInfo.setDefaultPort(this.port+1);
+
         this.initialRelay=new Relay({
-            host: data.address,
-            port: data.port,
+            host: data["address"],
+            port: data["port"],
+            //version: data["version"],
+
+            motd: data["motd"] + " - " + data["version"],
+            levelName: "world",
+
+            playersMax: 99,
             
             destination: {
-                host: data.destHost,
-                port: data.destPort
+                host: data["destHost"],
+                port: data["destPort"]
             }
         });
         this.initialRelay.listen();
 
         console.log(`Server has been started successfully on ${data.address}:${data.port}!`);
-        console.log(`Destination: ${data.destHost}:${data.destPort}`);
+        console.log(`Destination: ${data["destHost"]}:${data["destPort"]}`);
 
         this.initialRelay.on('connect', player => {
             player.on('login', (packet) => {

@@ -20,6 +20,8 @@ const Waypoints = require("../waypoints/Waypoints");
 const MovePlayerPacket = require("../packet/MovePlayerPacket");
 const EasyProxyInfo = require("../EasyProxyInfo");
 const UpdateAbilitiesPacket = require("../packet/UpdateAbilitiesPacket");
+const {InventoryManager} = require("./InventoryManager");
+const HardManager = require("./HardManager");
 
 class Player
 {
@@ -56,6 +58,8 @@ class Player
     effectManager;
     worldManager;
     cheatManager;
+    inventory;
+    hardManager;
 
     abilities = {};
 
@@ -82,6 +86,8 @@ class Player
         this.worldManager=new WorldManager(this);
         this.cheatManager=new CheatManager(this);
         this.waypoints=new Waypoints(this);
+        this.inventory=new InventoryManager(this);
+        this.hardManager=new HardManager(this);
     }
 
     getBedrockPlayer() {return this.player;}
@@ -167,6 +173,11 @@ class Player
         this.uniqueid=id;
     }
 
+    getInventory()
+    {
+        return this.inventory;
+    }
+
     /**
      * @return {HungerManager}
      */
@@ -197,6 +208,11 @@ class Player
     getCheatManager()
     {
         return this.cheatManager;
+    }
+
+    getHardManager()
+    {
+        return this.hardManager;
     }
 
     /**

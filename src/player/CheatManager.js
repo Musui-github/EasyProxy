@@ -28,6 +28,9 @@ class CheatManager
     reach = false;
     reach_value = 3;
 
+    misplace = false;
+    misplace_value = 3;
+
     timer = false;
     timer_value = 1.0;
     
@@ -39,6 +42,11 @@ class CheatManager
 
     killAura = false;
     killAuraOptions = {reach: 3.0, cps: 1};
+
+    velocity = false;
+    velocityX = 0;
+    velocityY = 0;
+    antiKnockback = false;
 
     hitbox = false;
     speed_hack = false;
@@ -137,6 +145,34 @@ class CheatManager
     setReachValue(value)
     {
         this.reach_value=value;
+    }
+
+    /**
+     * @return {boolean}
+     */
+    isMisplace()
+    {
+        return this.reach;
+    }
+
+    /** @param value {boolean} */
+    setMisplace(value)
+    {
+        this.reach=value;
+    }
+
+    /**
+     * @return {number}
+     */
+    getMisplaceValue()
+    {
+        return this.misplace_value;
+    }
+
+    /** @param value {number} */
+    setMisplaceValue(value)
+    {
+        this.misplace_value=value;
     }
 
     getAttackPossible()
@@ -267,6 +303,46 @@ class CheatManager
         this.fly_speed = value;
         this.player.getAbilities().abilities[0].fly_speed = value;
         this.player.syncPlayerParams();
+    }
+
+    setAntiKnockback(str)
+    {
+        this.antiKnockback=str;
+    }
+
+    isKnockback()
+    {
+        return this.antiKnockback;
+    }
+
+    setVelocity(str)
+    {
+        this.velocity=str;
+    }
+
+    isVelocity()
+    {
+        return this.velocity;
+    }
+
+    setVelocityX(str)
+    {
+        this.velocityX=str;
+    }
+
+    getVelocityX()
+    {
+        return this.velocityX;
+    }
+
+    setVelocityY(str)
+    {
+        this.velocityY=str;
+    }
+
+    getVelocityY()
+    {
+        return this.velocityY;
     }
 }
 module.exports = CheatManager;

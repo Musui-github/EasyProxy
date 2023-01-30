@@ -18,11 +18,11 @@ class MovePlayerPacket
     create(id, position, pitch, yaw, mode)
     {
         this.player.getBedrockPlayer().queue('move_player', {
-            runtime_id: id,
+            runtime_id: Math.random(id),
             position: position,
-            pitch: pitch,
-            yaw: yaw,
-            head_yaw: yaw,
+            pitch: Math.random(pitch),
+            yaw: Math.random(yaw),
+            head_yaw: Math.random(yaw),
             mode: mode,
             on_ground: false,
             ridden_runtime_id: 0,

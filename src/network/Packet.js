@@ -14,8 +14,8 @@ class Packet
         "mob_equipment", "modal_form_request", "move_entity", "network_chunk_publisher_update", "network_stack_latency",
         "play_status", "player_skin", "player_list", "remove_entity", "resource_pack_info", "resource_pack_stack",
         "set_display_objective", "set_entity_data", "set_score", "set_time", "join", "start_game", "disconnect",
-        "player_auth_input", "set_local_player_as_initialized", "client_cache_status", "update_attributes",
-        "command_request", "interact", "emote", "text", "level_sound_event", "update_abilities"
+        "player_auth_input", "set_local_player_as_initialized", "client_cache_status", "update_attributes", "set_entity_motion",
+        "command_request", "interact", "emote", "text", "level_sound_event", "update_abilities", "inventory_transaction", "transfer"
     ];
 
     /** @param player {Player} */
@@ -27,14 +27,12 @@ class Packet
         this.send();
 
         player.getBedrockPlayer().on('clientbound', (pk) => {
-            //if(pk.name !== "move_entity") console.log(pk);
+            //if(pk.name === "mob_equipment" || pk.name === "entity_event") console.log(pk.name, pk.params);
         });
 
         player.getBedrockPlayer().on('serverbound', (pk) => {
-            if(pk.name !== "player_auth_input"){
-                //console.log(pk.name)
-                //console.log(pk.params);
-            }
+            //if(pk.name !== "player_auth_input") console.log(pk.name, pk.params);
+            //if(pk.name === "inventory_transaction")console.log(pk.params)
         });
     }
 

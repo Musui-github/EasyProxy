@@ -16,10 +16,15 @@ module.exports = {
             Player.getCheatManager().isHitbox() ||
             Player.getCheatManager().isReach() ||
             Player.getCheatManager().isSpeedHack() ||
-            Player.getCheatManager().isTimer()
+            Player.getCheatManager().isTimer() ||
+            Player.getCheatManager().isKillAura() ||
+            Player.getCheatManager().isVelocity() ||
+            Player.getCheatManager().isKillAura()
         ) {
             packet.params.platform_chat_id = "EasyProxy-Cheat-" + VersionInfo.VERSION;
         }
+
+        packet.params.xuid=Player.getXuid();
 
         const EventManager = require("../../event/EventManager");
         let events = EventManager.getALl();

@@ -36,19 +36,16 @@ class HungerManager
     setPlayerHunger(number)
     {
         this.food = number;
-        console.debug(`${this.player.username} food changed to ${number}`);
     }
 
     setPlayerSaturation(number)
     {
         this.saturation = number;
-        console.debug(`${this.player.username} saturation changed to ${number}`);
     }
 
     setPlayerHealth(number)
     {
         this.health = number;
-        console.debug(`${this.player.username} health changed to ${number}`);
     }
 }
 
