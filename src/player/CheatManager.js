@@ -172,7 +172,7 @@ class CheatManager
     /** @param value {boolean} */
     setMisplace(value)
     {
-        this.reach=value;
+        this.misplace=value;
     }
 
     /**
