@@ -43,7 +43,7 @@ const {PlayerAuthInputPacket} = require("../packet/PlayerAuthInputPacket");
 const FormID = require("../form/FormID");
 const ModalFormRequestPacket = require("../packet/ModalFormRequestPacket");
 const TransferPacket = require("../packet/TransferPacket");
-const {EasyProxy} = require("../EasyProxy");
+const EasyProxy = require("../EasyProxy");
 const TextFormat = require("../format/TextFormat");
 
 class Player
@@ -508,7 +508,7 @@ class Player
     transferWithProxy(address, port)
     {
         setTimeout(() => this.transfer(ServerInfo.getGlobalData()["address"], EasyProxyInfo.getDefaultPort()), 5000);
-        let easyProxy=new EasyProxy({
+        new EasyProxy({
             address: ServerInfo.getGlobalData()["address"],
             port: EasyProxyInfo.getDefaultPort(),
 
