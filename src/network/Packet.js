@@ -17,8 +17,6 @@ const fs = require("fs");
 const Path = require("path");
 const Effect = require("../effect/Effect");
 const EffectId = require("../effect/EffectIds");
-const registry = require('prismarine-registry')('1.19.1')
-const {CommonChunk} = require('prismarine-chunk')(registry)
 
 class Packet
 {
