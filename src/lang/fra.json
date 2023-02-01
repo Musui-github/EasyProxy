@@ -1,17 +1,18 @@
 {
-  "server-start": "Server has been started successfully on {SERVER}!",
-  "destination": "Destination {DESTINATION-SERVER}",
+  "server-start": "Le serveur a été lancé avec succès sur {SERVER}!",
+  "destination": "Destination: {DESTINATION-SERVER}",
 
   "player": {
-    "add-player": "Added player {PLAYER}",
-    "remove-player": "Removed player {PLAYER}"
+    "add-player": "Ajout de {PLAYER}",
+    "remove-player": "Suppression de {PLAYER}"
   },
 
   "command": {
-    "registered-success": "{COMMAND} has been registered successfully!"
+    "registered-success": "{COMMAND} a été enregistré avec succès !"
   },
+
   "plugin": {
-    "load": "Plugin {PLUGIN} has been loaded successfully!",
-    "invalid-api": "Plugin {PLUGIN} does not have the right API!"
+    "load": "Plugin {PLUGIN} a été chargé avec succès !",
+    "invalid-api": "Plugin {PLUGIN} n'a pas la bonne API !"
   }
 }

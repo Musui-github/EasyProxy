@@ -224,7 +224,7 @@ class CheatManager
     setTimer(str)
     {
         this.timer=str;
-        this.player.level_event('set_game_speed', {x: 1.0, y: 0, z: 0}, 0);
+        this.player.level_event('set_game_speed', {x: 0, y: 0, z: 0}, 0);
         this.player.level_event('set_game_speed', {x: this.timer_value, y: 0, z: 0}, 0);
     }
 

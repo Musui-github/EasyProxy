@@ -1,0 +1,18 @@
+{
+  "server-start": "Server has been started successfully on {SERVER}!",
+  "destination": "Destination: {DESTINATION-SERVER}",
+
+  "player": {
+    "add-player": "Added player {PLAYER}",
+    "remove-player": "Removed player {PLAYER}"
+  },
+
+  "command": {
+    "registered-success": "{COMMAND} has been registered successfully!"
+  },
+
+  "plugin": {
+    "load": "Plugin {PLUGIN} has been loaded successfully!",
+    "invalid-api": "Plugin {PLUGIN} does not have the right API!"
+  }
+}

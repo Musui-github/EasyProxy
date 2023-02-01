@@ -13,6 +13,7 @@
  */
 
 let DEFAULT_PORT = 19132;
+let DEFAULT_SERVER_ID = 0;
 module.exports = {
     Discord: "https://discord.gg/easyproxy",
     Website: "https://easyproxy.com/",
@@ -31,5 +32,15 @@ module.exports = {
     setDefaultPort(str)
     {
         DEFAULT_PORT=str;
+    },
+
+    getServerID()
+    {
+        return DEFAULT_SERVER_ID;
+    },
+
+    setNextServerID(str)
+    {
+        DEFAULT_SERVER_ID=str;
     }
 }

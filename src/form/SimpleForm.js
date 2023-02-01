@@ -1,23 +1,25 @@
-class SimpleForm
-{
-    player;
-    id;
+const FormID = require("./FormID");
+const Logger = require("../logger/Logger");
+const Form = require("./Form");
 
-    title;
+class SimpleForm extends Form
+{
+    type = "form";
+
     content;
     buttons = [];
 
-    constructor(Player, id)
+
+    constructor(callable)
     {
-        this.player=Player;
-        this.id=id;
+        super(callable);
+
     }
 
-    setTitle(value)
-    {
-        this.title=value;
-    }
-
+    /**
+     * Enter a string so that it appears in games
+     * @param value {string}
+     */
     setContent(value)
     {
         this.content=value;

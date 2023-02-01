@@ -25,8 +25,10 @@ const Logger = require("./logger/Logger");
 const {getLangConfig} = require("./ServerInfo");
 const ServerInfo = require("./ServerInfo");
 const {THROWN_TRIDENT} = require("./entity/EntityIdsString");
+const { ping } = require('bedrock-protocol');
 const Task = require("./task/Task");
 const TaskManager = require("./task/TaskManager");
+const {sleep} = require("./EasyProxyInfo");
 
 class Server
 {
@@ -34,32 +36,54 @@ class Server
     port = 19132;
     players = new Map();
 
+    messages;
+
     initialRelay;
 
-    constructor(data)
+    constructor(data, messages)
+    {
+        this.messages=messages;
+        this.AsyncStart(data).then(r => {});
+    }
+
+    async AsyncStart(data)
     {
         this.address=data["address"];
         this.port=data["port"];
 
         EasyProxyInfo.setDefaultPort(this.port+1);
+        EasyProxyInfo.setNextServerID(EasyProxyInfo.getServerID()+1);
 
-        this.initialRelay=new Relay({
+        let ServerData = new Map();
+        let RelayData = {
             host: data["address"],
             port: data["port"],
-            //version: data["version"],
 
-            motd: data["motd"] + " - " + data["version"],
-            levelName: "world",
-
-            playersMax: data["maxPlayers"],
-            
             destination: {
                 host: data["destHost"],
                 port: data["destPort"]
-            }
+            },
+        }
+
+         await ping({ host: data["destHost"], port: data["destPort"] }).then(async res => {
+             ServerData.set("motd", res.motd);
+             ServerData.set("levelName", res.levelName);
+             ServerData.set("playersOnline", res.playersOnline);
+             ServerData.set("playersMax", res.playersMax);
+             ServerData.set("version", res.version);
+             ServerData.set("server", RelayData);
+
+             await ServerInfo.setServerDataByID(EasyProxyInfo.getServerID(), ServerData);
+         }).catch(err => {
+            Logger.warn("Error with pingRaknet, server is offline...");
+            process.exit(-1);
+            return false;
         });
+
+        this.initialRelay=new Relay(RelayData);
         this.initialRelay.listen();
 
+        if(!this.messages) console.log();
         Logger.notice(getLangConfig()["server-start"].replace('{SERVER}', `${data["address"]}:${data["port"]}`));
         Logger.notice(getLangConfig()["destination"].replace('{DESTINATION-SERVER}', `${data["destHost"]}:${data["destPort"]}`));
 

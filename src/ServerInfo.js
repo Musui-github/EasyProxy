@@ -14,6 +14,7 @@
 
 const ServerData = require('../server.json');
 const LangConfig = require(`./lang/${ServerData["lang"]}.json`);
+let ServersData = [];
 
 /**
  * @param server {Server}
@@ -40,5 +41,20 @@ module.exports =
     getLang()
     {
         return ServerData["lang"];
+    },
+
+    getGlobalData()
+    {
+        return ServerData;
+    },
+
+    setServerDataByID(id ,data)
+    {
+        ServersData[id]=data;
+    },
+
+    getServerDataByID(id)
+    {
+        return ServersData[id];
     }
 }

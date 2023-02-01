@@ -15,6 +15,7 @@
 const VersionInfo = require("../VersionInfo");
 const Logger = require("../logger/Logger");
 const {getLangConfig} = require("../ServerInfo");
+const ServerInfo = require("../ServerInfo");
 let plugins = [];
 module.exports = {
     load(plugin)
@@ -22,10 +23,10 @@ module.exports = {
         let API = VersionInfo.VERSION.split('.');
         let PLUGIN_API = plugin.getApi().split('.');
         if(API[0] !== PLUGIN_API[0]){
-            Logger.error(getLangConfig()["plugin"]["invalid-api"].replace("{PLUGIN}", plugin.getName()));
+            if(ServerInfo.getServer().messages) Logger.error(getLangConfig()["plugin"]["invalid-api"].replace("{PLUGIN}", plugin.getName()));
             return;
         }
-        Logger.debug(getLangConfig()["plugin"]["load"].replace("{PLUGIN}", plugin.getName()));
+        if(ServerInfo.getServer().messages) Logger.debug(getLangConfig()["plugin"]["load"].replace("{PLUGIN}", plugin.getName()));
         plugins.push(plugin);
     },
 

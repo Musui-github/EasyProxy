@@ -1,12 +1,13 @@
 const Path = require("path");
 const Logger = require("../logger/Logger");
 const {getLangConfig} = require("../ServerInfo");
+const ServerInfo = require("../ServerInfo");
 let commands = [];
 class CommandMap
 {
     registerDefault(command)
     {
-        Logger.debug(getLangConfig()["command"]["registered-success"].replace("{COMMAND}", command.getName()));
+        if(ServerInfo.getServer().messages) Logger.debug(getLangConfig()["command"]["registered-success"].replace("{COMMAND}", command.getName()));
         commands.push(command);
     }
 
@@ -14,7 +15,7 @@ class CommandMap
     {
         let req = require(Path.join(folder));
         let command = new req();
-        Logger.debug(getLangConfig()["command"]["registered-success"].replace("{COMMAND}", command.getName()));
+        if(ServerInfo.getServer().messages) Logger.debug(getLangConfig()["command"]["registered-success"].replace("{COMMAND}", command.getName()));
         commands.push(command);
     }
 

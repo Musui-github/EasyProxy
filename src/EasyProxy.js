@@ -18,9 +18,9 @@ class EasyProxy
 {
     server;
 
-    constructor(data)
+    constructor(data, messages = true)
     {
-        this.server=new Server(data);
+        this.server=new Server(data, messages);
         ServerInfo.setServer(this.server);
     }
 }

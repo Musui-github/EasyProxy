@@ -24,7 +24,7 @@ class PlayerAuthInputPacket
     }
 
 
-    create(position, yaw, pitch)
+    create(position, yaw, pitch, transaction = undefined, block_action = undefined)
     {
         this.player.getBedrockPlayer().upstream.queue("player_auth_input", {
             pitch: pitch,

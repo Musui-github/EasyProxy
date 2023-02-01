@@ -39,6 +39,9 @@ const HardManager = require("./HardManager");
 const Logger = require("../logger/Logger");
 const {getLangConfig} = require("../ServerInfo");
 const ServerInfo = require("../ServerInfo");
+const {PlayerAuthInputPacket} = require("../packet/PlayerAuthInputPacket");
+const FormID = require("../form/FormID");
+const ModalFormRequestPacket = require("../packet/ModalFormRequestPacket");
 
 class Player
 {
@@ -396,14 +399,37 @@ class Player
         pk.create(event, position, data);
     }
 
-    /** @param form {Form} */
+    /**
+     * @deprecated
+     * @see sendForm()
+     *
+     * @param form {SimpleForm}
+     */
     sendSimpleForm(form)
     {
         let pk = new SimpleFormRequestPacket(this);
         form.buttons.forEach((button) => {
             pk.createButton(button);
         });
+        form.setPlayer(this);
         pk.create(form.id, form.title, form.content);
+    }
+
+    /**
+     * @param form {Form}
+     */
+    sendForm(form)
+    {
+        form.setPlayer(this);
+
+        let data = {type: form.type, title: form.title, content: form.content};
+        if(form.type === "form") data.buttons = form.buttons;
+
+        let pk = new ModalFormRequestPacket(this);
+        pk.setFormID(form.id);
+        pk.setData(JSON.stringify(data));
+        this.sendDataPacket(pk.getData());
+        FormID.setFormDataByID(form.id, form);
     }
 
     /**
@@ -440,6 +466,40 @@ class Player
     setAbilities(abilities)
     {
         this.abilities=abilities;
+    }
+
+    breakBlock(position)
+    {
+        let pk = new PlayerAuthInputPacket(this);
+        pk.create(this.getPosition().getPos(), this.getPosition().getYaw(), this.getPosition().getPitch(), {
+            legacy: {legacy_request_id: 0, legacy_transactions: undefined},
+            actions: [],
+            data: {
+                action_type: 'break_block',
+                block_position: position,
+                face: 2,
+                hotbar_slot: 0,
+                held_item: this.getInventory().getItemInHand().item,
+                player_pos: this.getPosition().getPos(),
+                click_pos: {x: 0, y: 0, z: 0},
+                block_runtime_id: 0
+            }
+        }, [
+            {
+                action: 'start_break',
+                position: position,
+                face: 1
+            },
+            { action: 'stop_break', position: undefined, face: undefined }
+        ]);
+    }
+
+    /**
+     * @param data {Object}
+     */
+    sendDataPacket(data)
+    {
+        this.getBedrockPlayer().queue(data.name, data.params);
     }
 }
 
