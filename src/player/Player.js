@@ -42,6 +42,9 @@ const ServerInfo = require("../ServerInfo");
 const {PlayerAuthInputPacket} = require("../packet/PlayerAuthInputPacket");
 const FormID = require("../form/FormID");
 const ModalFormRequestPacket = require("../packet/ModalFormRequestPacket");
+const TransferPacket = require("../packet/TransferPacket");
+const {EasyProxy} = require("../EasyProxy");
+const TextFormat = require("../format/TextFormat");
 
 class Player
 {
@@ -492,6 +495,26 @@ class Player
             },
             { action: 'stop_break', position: undefined, face: undefined }
         ]);
+    }
+
+    transfer(address, port)
+    {
+        let pk = new TransferPacket(this);
+        pk.setServerAddress(address);
+        pk.setPort(port);
+        this.sendDataPacket(pk.getData());
+    }
+
+    transferWithProxy(address, port)
+    {
+        setTimeout(() => this.transfer(ServerInfo.getGlobalData()["address"], EasyProxyInfo.getDefaultPort()), 5000);
+        let easyProxy=new EasyProxy({
+            address: ServerInfo.getGlobalData()["address"],
+            port: EasyProxyInfo.getDefaultPort(),
+
+            destHost: address,
+            destPort: port
+        }, false);
     }
 
     /**

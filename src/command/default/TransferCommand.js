@@ -20,22 +20,8 @@ class ProxyCommand extends Command
 
         if(!transferPort) transferPort = 19132;
 
-        let pk = new TransferPacket(player);
-        pk.setServerAddress(ServerInfo.getGlobalData()["address"]);
-        pk.setPort(EasyProxyInfo.getDefaultPort());
-
         player.sendMessage(TextFormat.getPrefix() + TextFormat.GREEN + "You will be transferred in 5 seconds...");
-
-        let easyProxy=new EasyProxy({
-            address: ServerInfo.getGlobalData()["address"],
-            port: EasyProxyInfo.getDefaultPort(),
-            version: player.getGameVersion(),
-
-            destHost: transferAddress,
-            destPort: transferPort
-        }, false);
-
-        setTimeout(() => player.sendDataPacket(pk.getData()), 5000);
+        player.transferWithProxy(transferAddress, transferPort);
     }
 }
 module.exports = ProxyCommand;
