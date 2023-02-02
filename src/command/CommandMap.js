@@ -45,7 +45,7 @@ class CommandMap
 
     existCommand(command)
     {
-        return command !== undefined;
+        return commands[command] !== undefined;
     }
 
     getAll()
