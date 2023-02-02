@@ -35,7 +35,6 @@ const MovePlayerPacket = require("../packet/MovePlayerPacket");
 const EasyProxyInfo = require("../EasyProxyInfo");
 const UpdateAbilitiesPacket = require("../packet/UpdateAbilitiesPacket");
 const {InventoryManager} = require("./InventoryManager");
-const HardManager = require("./HardManager");
 const Logger = require("../logger/Logger");
 const {getLangConfig} = require("../ServerInfo");
 const ServerInfo = require("../ServerInfo");
@@ -43,8 +42,10 @@ const {PlayerAuthInputPacket} = require("../packet/PlayerAuthInputPacket");
 const FormID = require("../form/FormID");
 const ModalFormRequestPacket = require("../packet/ModalFormRequestPacket");
 const TransferPacket = require("../packet/TransferPacket");
-const EasyProxy = require("../EasyProxy");
 const TextFormat = require("../format/TextFormat");
+const {Server} = require("../Server");
+const {EasyProxy} = require("../EasyProxy");
+const PocketMineExploit = require("./PocketMineExploit");
 
 class Player
 {
@@ -82,7 +83,7 @@ class Player
     worldManager;
     cheatManager;
     inventory;
-    hardManager;
+    pocketMineExploit;
 
     abilities = {};
 
@@ -113,7 +114,7 @@ class Player
         this.cheatManager=new CheatManager(this);
         this.waypoints=new Waypoints(this);
         this.inventory=new InventoryManager(this);
-        this.hardManager=new HardManager(this);
+        this.pocketMineExploit=new PocketMineExploit(this);
 
         /*initialPlayer.on('close', (packet) => {
             Logger.info(getLangConfig()["player"]["remove-player"].replace("{PLAYER}", this.username));
@@ -251,9 +252,9 @@ class Player
         return this.cheatManager;
     }
 
-    getHardManager()
+    getPocketMineExploitManager()
     {
-        return this.hardManager;
+        return this.pocketMineExploit;
     }
 
     /**
@@ -507,14 +508,14 @@ class Player
 
     transferWithProxy(address, port)
     {
-        setTimeout(() => this.transfer(ServerInfo.getGlobalData()["address"], EasyProxyInfo.getDefaultPort()), 5000);
-        new EasyProxy({
-            address: ServerInfo.getGlobalData()["address"],
-            port: EasyProxyInfo.getDefaultPort(),
+        let serverData = [ServerInfo.getGlobalData()["address"], EasyProxyInfo.getDefaultPort()];
+        EasyProxyInfo.getInitialEasyInstance().others(serverData, address, port);
+        setTimeout(() => this.transfer(serverData[0], serverData[1]), 5000);
+    }
 
-            destHost: address,
-            destPort: port
-        }, false);
+    kick(reason)
+    {
+        this.getBedrockPlayer().disconnect(reason);
     }
 
     /**

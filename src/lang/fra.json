@@ -11,8 +11,18 @@
     "registered-success": "{COMMAND} a été enregistré avec succès !"
   },
 
+  "config": {
+    "invalid-type": "Désolée, le type de configurations {FILE_TYPE} n'est pas pris en compte par notre software!"
+  },
+
+  "shutdown": "Arrêt du serveur",
+  "can-start": {
+    "development-build": "Désolé, votre serveur n'a pas réussi à démarrer parce que vous utilisez une version de développement d'EasyProxy, vous avez configuré la configuration pour interdire les versions de développement !"
+  },
+
   "plugin": {
     "load": "Plugin {PLUGIN} a été chargé avec succès !",
+    "unload": "Plugin {PLUGIN} a été déchargé avec succès!",
     "invalid-api": "Plugin {PLUGIN} n'a pas la bonne API !"
   }
 }

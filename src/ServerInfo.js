@@ -14,6 +14,10 @@
 
 const ServerData = require('../server.json');
 const LangConfig = require(`./lang/${ServerData["lang"]}.json`);
+const {Config} = require("./utils/Config");
+
+let LangConfiguration;
+
 let ServersData = [];
 
 /**
@@ -36,6 +40,12 @@ module.exports =
     getLangConfig()
     {
         return LangConfig;
+    },
+
+    getLangConfiguration()
+    {
+        if(LangConfiguration === undefined) LangConfiguration = new Config(process.cwd() + `/src/lang/${ServerData["lang"]}.json`);
+        return LangConfiguration;
     },
 
     getLang()

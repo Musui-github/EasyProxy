@@ -28,7 +28,7 @@ class SimpleForm extends Form
     /** @param value {string} */
     addButton(value)
     {
-        this.buttons.push(value);
+        this.buttons.push({text: value});
     }
 }
 module.exports = SimpleForm;

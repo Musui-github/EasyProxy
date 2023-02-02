@@ -86,5 +86,10 @@ class PluginBase
     {
         // TODO: Plugin start
     }
+
+    onDisable()
+    {
+        // TODO: Plugin disable
+    }
 }
 module.exports = PluginBase;

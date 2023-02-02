@@ -8,6 +8,10 @@
     "gkm": "^0.2.0",
     "ip": "^1.1.8",
     "js_mt_rand": "^2.1.0",
-    "uuid": "^9.0.0"
+    "prismarine-chunk": "^1.33.0",
+    "prismarine-nbt": "^2.2.1",
+    "prismarine-registry": "^1.6.0",
+    "uuid": "^9.0.0",
+    "xhr2": "^0.2.1"
   }
 }

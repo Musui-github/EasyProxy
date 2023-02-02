@@ -11,12 +11,41 @@ class CommandMap
         commands.push(command);
     }
 
+    /**
+     * @deprecated
+     * @see registerCommand()
+     *
+     * @param folder
+     */
     register(folder)
     {
         let req = require(Path.join(folder));
         let command = new req();
+        if(this.existCommand(command))return false;
         if(ServerInfo.getServer().messages) Logger.debug(getLangConfig()["command"]["registered-success"].replace("{COMMAND}", command.getName()));
         commands.push(command);
+    }
+
+    /**
+     *
+     * @param command {Command}
+     */
+    registerCommand(command)
+    {
+        if(this.existCommand(command))return false;
+        if(ServerInfo.getServer().messages) Logger.debug(getLangConfig()["command"]["registered-success"].replace("{COMMAND}", command.getName()));
+        commands.push(command);
+    }
+
+    unregisterCommand(command)
+    {
+        if(!this.existCommand(command))return false;
+        delete (commands[command]);
+    }
+
+    existCommand(command)
+    {
+        return command !== undefined;
     }
 
     getAll()

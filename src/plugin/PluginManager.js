@@ -30,6 +30,21 @@ module.exports = {
         plugins.push(plugin);
     },
 
+    unload(plugin)
+    {
+        if(plugins[plugin] === undefined)return false;
+        delete(plugins[plugin]);
+    },
+
+    unloadAll()
+    {
+        plugins.forEach((plugin) => {
+            if(ServerInfo.getServer().messages) Logger.debug(getLangConfig()["plugin"]["unload"].replace("{PLUGIN}", plugin.getName()));
+            plugin.onDisable();
+            delete(plugin);
+        });
+    },
+
     getAll()
     {
         return plugins;

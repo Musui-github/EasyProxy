@@ -12,5 +12,5 @@
  *
  */
 
-const {EasyProxy} = require("./src/EasyProxy");
+const EasyProxy = require("./src/EasyProxy");
 new EasyProxy(require('./server.json'));

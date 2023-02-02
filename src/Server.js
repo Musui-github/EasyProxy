@@ -22,13 +22,19 @@ const PluginLoader = require("./plugin/PluginLoader");
 const {EasyProxy} = require("./EasyProxy");
 const EasyProxyInfo = require("./EasyProxyInfo");
 const Logger = require("./logger/Logger");
-const {getLangConfig} = require("./ServerInfo");
+const {getLangConfig, getLangConfiguration} = require("./ServerInfo");
 const ServerInfo = require("./ServerInfo");
 const {THROWN_TRIDENT} = require("./entity/EntityIdsString");
 const { ping } = require('bedrock-protocol');
 const Task = require("./task/Task");
 const TaskManager = require("./task/TaskManager");
 const {sleep} = require("./EasyProxyInfo");
+const PluginManager = require("./plugin/PluginManager");
+const {Config} = require("./utils/Config");
+const VersionInfo = require("./VersionInfo");
+
+/*** @var {Config}*/
+let EasyProxyConfig;
 
 class Server
 {
@@ -39,6 +45,8 @@ class Server
     messages;
 
     initialRelay;
+
+    lang;
 
     constructor(data, messages)
     {
@@ -97,7 +105,14 @@ class Server
             });
         });
 
-        let task = new Task(TaskManager.TYPE_REPEAT, 5000, []);
+        this.setLang(data["lang"]);
+
+        EasyProxyConfig = new Config(process.cwd() + "/easyproxy.json");
+        if(!EasyProxyConfig.getNested("settings.enable-dev-builds", false) && VersionInfo.IS_DEVELOPMENT_BUILD){
+            Logger.warn(getLangConfiguration().getNested("can-start.development-build"));
+            this.shutdown();
+            return;
+        }
 
         const commandFiles = fs.readdirSync(Path.join(process.cwd() + '/src/command/default')).filter(file => file.endsWith('.js'));
         for (const file of commandFiles) {
@@ -139,6 +154,27 @@ class Server
         this.getPlayers().forEach((player) => {
            player.sendMessage(message);
         });
+    }
+
+    getLang()
+    {
+        return this.lang;
+    }
+
+    setLang(str)
+    {
+        this.lang=str;
+    }
+
+    shutdown()
+    {
+        let reason = getLangConfiguration().getNested("")
+        this.getPlayers().forEach((player) => {
+           player.kick(EasyProxyConfig.getNested("settings.shutdown-message"));
+        });
+        Logger.info(getLangConfig()["shutdown"]);
+        PluginManager.unloadAll();
+        process.exit(-1);
     }
 
     getCommandMap()
