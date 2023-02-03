@@ -2,8 +2,8 @@
   "address": "127.0.0.1",
   "port": 19132,
 
-  "lang": "fra",
+  "lang": "eng",
 
-  "destHost": "sunlight-mc.eu",
-  "destPort": 19131
+  "destHost": "IP ADDRESS",
+  "destPort": 19132
 }

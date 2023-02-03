@@ -1,6 +1,6 @@
 {
   "settings": {
     "shutdown-message": "§cProxy closed",
-    "enable-dev-builds": true
+    "enable-dev-builds": false
   }
 }
