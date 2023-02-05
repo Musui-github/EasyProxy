@@ -55,13 +55,13 @@ module.exports = {
 
     async writePrefix(prefix, log)
     {
-        await write(`${colors.gray(new Date().toLocaleDateString().replaceAll('/', "-"))} ${colors.gray("[" + Date.now() + "]")} [Proxy Thread/${prefix}]: ${log}`);
+        await write(`${colors.gray(new Date().toLocaleDateString().replaceAll('/', "-"))} ${colors.gray("[" + Date.now() + "]")} [Proxy Thread/${prefix}]: ${log}`, prefix !== colors.underline(TYPE.debug));
     },
 };
 
-async function write(log)
+async function write(log, sendMessages)
 {
-    console.log(log);
+    if(sendMessages) console.log(log);
 
     try {
         fs.readFileSync(Path.join(process.argv[2] + '\\logs.txt'), 'utf-8');

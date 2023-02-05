@@ -15,14 +15,22 @@
     "invalid-type": "Sorry, the configuration type {FILE_TYPE} is not taken into account by our software!"
   },
 
-  "shutdown": "Shutdown of the server",
-  "can-start": {
-    "development-build": "Sorry, your server failed to start because you are using a development version of EasyProxy, you have set the configuration to prohibit development versions!"
+  "server": {
+    "loading": "Loading server configuration",
+    "lang": "Selected {LANG} as the base language",
+    "starting": "Starting Minecraft: Bedrock Edition proxy version v{VERSION}",
+    "running": "This proxy is running {NAME} version {VERSION}",
+    "shutdown": "Shutdown of the server",
+    "started": "Done ({SEC}s)!",
+    "can-start": {
+      "development-build": "Sorry, your server failed to start because you are using a development version of EasyProxy, you have set the configuration to prohibit development versions!"
+    }
   },
 
   "plugin": {
-    "load": "Plugin {PLUGIN} has been loaded successfully!",
-    "unload": "Plugin {PLUGIN} has been unloaded successfully!",
+    "loading": "Loading {PLUGIN} {VERSION}",
+    "enabling": "Enabling {PLUGIN} {VERSION}",
+    "disabling": "Disabling {PLUGIN} {VERSION}",
     "invalid-api": "Plugin {PLUGIN} does not have the right API!"
   }
 }

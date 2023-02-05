@@ -38,8 +38,6 @@ class PluginBase
         this.dataFolder=dataFolder;
 
         try {fs.mkdirSync(dataFolder);}catch (e){}
-
-        this.onEnable();
     }
 
     getName()

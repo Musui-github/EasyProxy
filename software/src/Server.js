@@ -19,15 +19,11 @@ const CommandMap = require('./command/CommandMap');
 const fs = require("fs");
 const Path = require("path");
 const PluginLoader = require("./plugin/PluginLoader");
-const {EasyProxy} = require("./EasyProxy");
 const EasyProxyInfo = require("./EasyProxyInfo");
 const Logger = require("./logger/Logger");
-const {getLangConfig, getLangConfiguration} = require("./ServerInfo");
+const {getLangConfig, getLangConfiguration, getLang} = require("./ServerInfo");
 const ServerInfo = require("./ServerInfo");
-const {THROWN_TRIDENT} = require("./entity/EntityIdsString");
 const { ping } = require('bedrock-protocol');
-const Task = require("./task/Task");
-const TaskManager = require("./task/TaskManager");
 const {sleep} = require("./EasyProxyInfo");
 const PluginManager = require("./plugin/PluginManager");
 const {Config} = require("./utils/Config");
@@ -56,11 +52,19 @@ class Server
 
     async AsyncStart(data)
     {
+        let started_time = Date.now();
+
+        await sleep(500);
+
+        await console.clear();
+        if(this.messages) await Logger.info(getLangConfiguration().getNested("server.loading"));
+
         this.address=data["address"];
         this.port=data["port"];
 
         EasyProxyInfo.setDefaultPort(this.port+1);
         EasyProxyInfo.setNextServerID(EasyProxyInfo.getServerID()+1);
+
 
         let ServerData = new Map();
         let RelayData = {
@@ -74,6 +78,8 @@ class Server
                 port: data["destPort"]
             },
         }
+
+        if(this.messages) await Logger.info(getLangConfiguration().getNested("server.lang").replace('{LANG}', getLang()));
 
          await ping({ host: data["destHost"], port: data["destPort"] }).then(async res => {
              ServerData.set("motd", res.motd);
@@ -90,6 +96,11 @@ class Server
             return false;
         });
 
+        if(this.messages){
+            await Logger.info(getLangConfiguration().getNested("server.starting").replace('{VERSION}', ServerData.get("version")));
+            await Logger.info(getLangConfiguration().getNested("server.running").replace('{VERSION}', VersionInfo.VERSION).replace('{NAME}', VersionInfo.NAME));
+        }
+
         this.initialRelay=new Relay(RelayData);
         this.initialRelay.listen();
 
@@ -99,9 +110,10 @@ class Server
         });
 
 
-        if(!this.messages) console.log();
-        Logger.notice(getLangConfig()["server-start"].replace('{SERVER}', `${data["address"]}:${data["port"]}`));
-        Logger.notice(getLangConfig()["destination"].replace('{DESTINATION-SERVER}', `${data["destHost"]}:${data["destPort"]}`));
+        if(this.messages) {
+            await Logger.info(getLangConfig()["server-start"].replace('{SERVER}', `${data["address"]}:${data["port"]}`));
+            await Logger.info(getLangConfig()["destination"].replace('{DESTINATION-SERVER}', `${data["destHost"]}:${data["destPort"]}`));
+        }
 
         this.initialRelay.on('connect', player => {
             player.on('login', (packet) => {
@@ -121,6 +133,8 @@ class Server
             return;
         }
 
+        await new PluginLoader(Path.join(process.argv[2] + '/plugin/'));
+
         const commandFiles = fs.readdirSync(Path.join(process.cwd() + '/src/command/default')).filter(file => file.endsWith('.js'));
         for (const file of commandFiles) {
             /** @var Event */
@@ -128,7 +142,8 @@ class Server
             this.getCommandMap().registerDefault(new cmd());
         }
 
-        new PluginLoader(Path.join(process.argv[2] + '/plugin/'));
+        PluginManager.enablingAll();
+        await Logger.info(getLangConfiguration().getNested("server.started").replace('{SEC}', `0.${(Date.now() - started_time)}`));
     }
 
     /** @returns {string} <code>Initial Server Address<code> */

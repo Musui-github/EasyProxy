@@ -14,7 +14,7 @@
 
 const VersionInfo = require("../VersionInfo");
 const Logger = require("../logger/Logger");
-const {getLangConfig} = require("../ServerInfo");
+const {getLangConfig, getLangConfiguration} = require("../ServerInfo");
 const ServerInfo = require("../ServerInfo");
 let plugins = [];
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
             if(ServerInfo.getServer().messages) Logger.error(getLangConfig()["plugin"]["invalid-api"].replace("{PLUGIN}", plugin.getName()));
             return;
         }
-        if(ServerInfo.getServer().messages) Logger.debug(getLangConfig()["plugin"]["load"].replace("{PLUGIN}", plugin.getName()));
+        if(ServerInfo.getServer().messages) Logger.info(getLangConfiguration().getNested("plugin.enabling").replace("{PLUGIN}", plugin.getName()).replace("{VERSION}", `v${plugin.getVersion()}`));
         plugins.push(plugin);
     },
 
@@ -42,6 +42,14 @@ module.exports = {
             if(ServerInfo.getServer().messages) Logger.debug(getLangConfig()["plugin"]["unload"].replace("{PLUGIN}", plugin.getName()));
             plugin.onDisable();
             delete(plugin);
+        });
+    },
+
+    enablingAll()
+    {
+        plugins.forEach((plugin)=> {
+            plugin.onEnable();
+            if(ServerInfo.getServer().messages) Logger.info(getLangConfiguration().getNested("plugin.enabling").replace("{PLUGIN}", plugin.getName()).replace("{VERSION}", `v${plugin.getVersion()}`));
         });
     },
 
