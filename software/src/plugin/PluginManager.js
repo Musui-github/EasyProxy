@@ -26,7 +26,7 @@ module.exports = {
             if(ServerInfo.getServer().messages) Logger.error(getLangConfig()["plugin"]["invalid-api"].replace("{PLUGIN}", plugin.getName()));
             return;
         }
-        if(ServerInfo.getServer().messages) Logger.info(getLangConfiguration().getNested("plugin.enabling").replace("{PLUGIN}", plugin.getName()).replace("{VERSION}", `v${plugin.getVersion()}`));
+        if(ServerInfo.getServer().messages) Logger.info(getLangConfiguration().getNested("plugin.loading").replace("{PLUGIN}", plugin.getName()).replace("{VERSION}", `v${plugin.getVersion()}`));
         plugins.push(plugin);
     },
 

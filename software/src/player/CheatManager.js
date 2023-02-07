@@ -54,7 +54,7 @@ class CheatManager
     AttackPossible = false;
     attackPossible;
 
-    killAura = true;
+    killAura = false;
     killAuraOptions = {reach: 3.0, cps: 1};
 
     velocity = false;
@@ -71,6 +71,9 @@ class CheatManager
      */
     fly = false;
     fly_speed = 0.05000000074505806;
+
+    autoWord = true;
+    autoWordOptions = {word: "unknown", autoResp: false, hasResp: false};
 
     constructor(Player)
     {
@@ -357,6 +360,26 @@ class CheatManager
     getVelocityY()
     {
         return this.velocityY;
+    }
+
+    isAutoWord()
+    {
+        return this.autoWord;
+    }
+
+    setAutoWord(str)
+    {
+        this.autoWord=str;
+    }
+
+    getAutoWordOptions(key)
+    {
+        return this.autoWordOptions[key];
+    }
+
+    setAutoWordOptions(key, value)
+    {
+        this.autoWordOptions[key]=value;
     }
 }
 module.exports = CheatManager;

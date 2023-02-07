@@ -26,6 +26,13 @@
       "development-build": "Sorry, your server failed to start because you are using a development version of EasyProxy, you have set the configuration to prohibit development versions!"
     }
   },
+  "cheats": {
+    "autoWord": {
+      "confirm": "§aCode find! Send a message to send code!",
+      "send": "§aCode send!",
+      "elapsed-time": "§cElapsed time"
+    }
+  },
 
   "plugin": {
     "loading": "Loading {PLUGIN} {VERSION}",

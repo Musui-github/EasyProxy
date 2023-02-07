@@ -32,7 +32,6 @@ module.exports = {
            command.getAliases().forEach((alias) => {
                if(`//${alias}` === args[0]){
                    command.onRun(Player, args);
-                   return;
                }
            });
         });

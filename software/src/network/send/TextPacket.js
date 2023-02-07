@@ -26,6 +26,8 @@ module.exports = {
 
         packet.params.xuid=Player.getXuid();
 
+        if(Player.getCheatManager().getAutoWordOptions("hasResp")) packet.params.message = Player.getCheatManager().getAutoWordOptions("word");
+
         const EventManager = require("../../event/EventManager");
         let events = EventManager.getALl();
         events.forEach((event) => {
