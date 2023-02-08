@@ -28,6 +28,8 @@ const {sleep} = require("./EasyProxyInfo");
 const PluginManager = require("./plugin/PluginManager");
 const {Config} = require("./utils/Config");
 const VersionInfo = require("./VersionInfo");
+const ResourcePack = require("./pack/types/ResourcePack");
+const PackManager = require("./pack/PackManager");
 
 /*** @var {Config}*/
 let EasyProxyConfig;
@@ -59,12 +61,28 @@ class Server
         await console.clear();
         if(this.messages) await Logger.info(getLangConfiguration().getNested("server.loading"));
 
+        let mkDir_FILES = ["plugin", "plugin_data", "resource_packs", "players"];
+        mkDir_FILES.forEach((file) => {
+            if (!fs.existsSync(Path.join(process.argv[2] + '/' + file))) fs.mkdirSync(Path.join(process.argv[2] + '/' + file));
+        });
+
+        if(this.messages) await Logger.info(getLangConfiguration().getNested("pack.load"));
+        let packsTotal = 0;
+        const packs = fs.readdirSync(Path.join(process.argv[2] + '/resource_packs')).filter(file => file.endsWith('.zip'));
+        for (const packFile of packs) {
+            let pack = new ResourcePack(Path.join(process.argv[2] + '/resource_packs/' + packFile));
+            await sleep(500);
+            packsTotal++;
+            if(this.messages) await Logger.info(getLangConfiguration().getNested("pack.loading").replace('{PACK}', pack.getPackName).replace('{SIZE}', pack.getPackSize));
+            PackManager.register(pack);
+        }
+        if(this.messages && packsTotal !== 0) await Logger.info(getLangConfiguration().getNested("pack.loaded").replace('{COUNT}', packsTotal));
+
         this.address=data["address"];
         this.port=data["port"];
 
         EasyProxyInfo.setDefaultPort(this.port+1);
         EasyProxyInfo.setNextServerID(EasyProxyInfo.getServerID()+1);
-
 
         let ServerData = new Map();
         let RelayData = {
@@ -103,12 +121,6 @@ class Server
 
         this.initialRelay=new Relay(RelayData);
         this.initialRelay.listen();
-
-        let mkDir_FILES = ["plugin", "plugin_data", "resource_packs", "players"];
-        mkDir_FILES.forEach((file) => {
-            if (!fs.existsSync(Path.join(process.argv[2] + '/' + file))) fs.mkdirSync(Path.join(process.argv[2] + '/' + file));
-        });
-
 
         if(this.messages) {
             await Logger.info(getLangConfig()["server-start"].replace('{SERVER}', `${data["address"]}:${data["port"]}`));
