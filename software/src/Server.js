@@ -143,7 +143,7 @@ class Server
         this.setLang(data["lang"]);
         EasyProxyConfig = new Config(Path.join(process.argv[2] + "/easyproxy.json"));
         if(!EasyProxyConfig.getNested("settings.enable-dev-builds", false) && VersionInfo.IS_DEVELOPMENT_BUILD){
-            Logger.warn(getLangConfiguration().getNested("can-start.development-build"));
+            await Logger.warn(getLangConfiguration().getNested("server.can-start.development-build"));
             this.shutdown();
             return;
         }
@@ -209,7 +209,7 @@ class Server
         this.getPlayers().forEach((player) => {
            player.kick(EasyProxyConfig.getNested("settings.shutdown-message"));
         });
-        Logger.info(getLangConfig()["shutdown"]);
+        Logger.info(getLangConfiguration().getNested("server.shutdown"));
         PluginManager.unloadAll();
         process.exit(-1);
     }
