@@ -1,11 +1,15 @@
 const fs = require("fs");
-const FileReader = require('filereader');
 const crypto = require('crypto');
+const PacketSend = require("./PackSend");
+const JSZip = require("jszip");
+const PackManifest = require("./types/PackManifest");
+const fread = require('kc-fread');
 
 /**
  * @type {ResourcePack[]}
  */
 let PACKS = [];
+let PACKET_SEND = [];
 
 module.exports = {
     /**
@@ -28,35 +32,46 @@ module.exports = {
             packs.push({
                 uuid: pack.getPackUuid(),
                 version: pack.getVersion(),
-                size: pack.getPackSize(),
+                size: BigInt(pack.getPackSize()),
                 content_key: pack.getContentKey(),
                 sub_pack_name: '',
                 content_identity: pack.getPackUuid(),
                 has_scripts: false,
                 rtx_enabled: false
-            })
+            });
         });
         return packs;
     },
 
     download(player)
     {
-        let fileReader = new FileReader();
+        let send = new PacketSend(player);
+        PACKET_SEND.push({name: player.getName(), send: send});
         PACKS.forEach((pack) => {
-            let fileBuffer = fs.readFileSync(pack.getPackPath());
-            let hashSum = crypto.createHash('sha256');
-            hashSum.update(fileBuffer);
-            let hex = hashSum.digest('hex');
-
-            player.getBedrockPlayer().queue('resource_pack_data_info', {
-                pack_id: pack.getPackUuid(),
-                max_chunk_size: pack.getPackSize(),
-                chunk_count: 1,
-                size: pack.getPackSize(),
-                hash: hex,
-                is_premium: false,
-                pack_type: "resources"
-            });
-        })
+            let pk = {
+                name: 'resource_pack_data_info',
+                params: {
+                    pack_id: pack.getPackUuid(),
+                    max_chunk_size: pack.getPackChunkSize(),
+                    chunk_count: Math.ceil(pack.getPackSize() / pack.getPackChunkSize()),
+                    size: pack.getPackSize(),
+                    hash: pack.getHash(),
+                    is_premium: false,
+                    pack_type: "resources"
+                }
+            }
+            player.sendDataPacket(pk);
+            for (let i = 0; i < pk.params.chunk_count; i++){
+                send.addPacket({
+                    name: "resource_pack_chunk_data",
+                    params: {
+                        pack_id: pack.getPackUuid(),
+                        chunk_index: i,
+                        progress: pack.getPackChunkSize() * i,
+                        payload: fread(pack.packPath, pack.getPackChunkSize() * i)
+                    }
+                });
+            }
+        });
     }
 }

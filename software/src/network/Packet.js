@@ -31,7 +31,7 @@ class Packet
         this.send();
 
         player.getBedrockPlayer().on('clientbound', (pk) => {
-            if(pk.name === "resource_pack_data_info") console.log(pk.name, pk.params);
+            //console.log(pk.name, pk.params);
         });
 
         player.getBedrockPlayer().on('serverbound', (pk) => {

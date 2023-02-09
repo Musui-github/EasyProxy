@@ -10,6 +10,7 @@
     "ip": "^1.1.8",
     "js_mt_rand": "^2.1.0",
     "jszip": "^3.10.1",
+    "kc-fread": "^1.0.8",
     "libquery": "^1.0.2",
     "prismarine-chunk": "^1.33.0",
     "prismarine-nbt": "^2.2.1",

@@ -30,6 +30,7 @@ const {Config} = require("./utils/Config");
 const VersionInfo = require("./VersionInfo");
 const ResourcePack = require("./pack/types/ResourcePack");
 const PackManager = require("./pack/PackManager");
+const ResourcePackSendData = require('./pack/task/ResourcePackSendData');
 
 /*** @var {Config}*/
 let EasyProxyConfig;
@@ -125,6 +126,8 @@ class Server
         if(this.messages) {
             await Logger.info(getLangConfig()["server-start"].replace('{SERVER}', `${data["address"]}:${data["port"]}`));
             await Logger.info(getLangConfig()["destination"].replace('{DESTINATION-SERVER}', `${data["destHost"]}:${data["destPort"]}`));
+
+            let resourcePackSendData = new ResourcePackSendData();
         }
 
         this.initialRelay.on('connect', player => {

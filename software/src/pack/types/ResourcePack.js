@@ -2,15 +2,15 @@ const jsZip = require('jszip');
 const JSZip = require("jszip");
 const fs = require("fs");
 const PackManifest = require("./PackManifest");
+const crypto = require("crypto");
 
 let $class;
-let packSize = 0;
-let manifest;
 let contains;
 
 class ResourcePack
 {
     packSize = 0;
+    packChunkSize = 128 * 1024;
     manifest;
     content_key = '';
     packPath = "unknown";
@@ -36,9 +36,6 @@ class ResourcePack
                             $class.manifest = new PackManifest($class, data);
                         });
                     }
-
-                    let info = zip.file(key);
-                    try {$class.packSize += info["_data"].compressedSize;}catch (e){}
                 });
             });
         });
@@ -46,7 +43,16 @@ class ResourcePack
 
     getPackSize()
     {
+        if(this.packSize === 0) {
+            let stats = fs.statSync(this.packPath);
+            this.packSize = stats.size;
+        }
         return this.packSize;
+    }
+
+    getPackChunkSize()
+    {
+        return this.packChunkSize;
     }
 
     getPackManifest()
@@ -77,6 +83,22 @@ class ResourcePack
     getPackPath()
     {
         return this.packPath;
+    }
+
+    getHash()
+    {
+        let fileBuffer = fs.readFileSync(this.getPackPath());
+        let hashSum = crypto.createHash('sha256');
+        hashSum.update(fileBuffer);
+
+        let myFileAsBuffer = fs.readFileSync(this.getPackPath(), { flag: 'r' });
+        return hashSum.digest(myFileAsBuffer);
+    }
+
+    getPackChunk(offset, size)
+    {
+        fs.readFile(this.packPath, offset);
+        return fs.readFile(this.packPath, size);
     }
 }
 module.exports = ResourcePack;

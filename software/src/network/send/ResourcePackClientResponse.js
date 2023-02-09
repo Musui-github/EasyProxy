@@ -12,9 +12,12 @@ module.exports = {
         switch (step){
             case "send_packs":
                 let packs = PackManager.getAll();
-                packs.forEach((pack) => packet.params.resourcepackids.push(`${pack.getPackUuid()}_${pack.getVersion()}`));
-
                 PackManager.download(player);
+                break;
+            case "have_all_packs":
+                let pk = {name: "resource_pack_stack"}
+                break;
+            default:
                 break;
         }
     }
