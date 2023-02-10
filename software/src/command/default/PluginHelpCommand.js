@@ -9,12 +9,12 @@ class PluginHelpCommand extends Command
         super("pluginhelp", "Display the list of available commands.");
     }
 
-    onRun(Player, args)
+    onRun(player, args)
     {
         let pluginList = PluginManager.getAll();
         pluginList.forEach((plugin) => {
             if(args[1].toLowerCase() === plugin.getName().toLowerCase()) {
-                Player.sendMessage(TextFormat.getPrefix() + `§aHere is the description of the plugin: §f` + plugin.getDescription());
+                player.sendMessage(TextFormat.getPrefix() + `§aHere is the description of the plugin: §f` + plugin.getDescription());
             }
         });
     }

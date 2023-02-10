@@ -6,13 +6,13 @@ class ProxyCommand extends Command
         super("proxy", "Display the list of available commands.");
     }
 
-    onRun(Player, args)
+    onRun(player, args)
     {
-        Player.sendMessage(`§a--- Displaying the help page ---`);
+        player.sendMessage(`§a--- Displaying the help page ---`);
         let commands = ServerInfo.getServer().getCommandMap().getAll();
         commands.forEach((command) => {
            if(command !== this){
-               Player.sendMessage(`/${command.getName()} <${command.getUsage()}> §7- §r§o${command.getDescription()}`);
+               player.sendMessage(`/${command.getName()} <${command.getUsage()}> §7- §r§o${command.getDescription()}`);
            }
         });
     }

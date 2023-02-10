@@ -9,7 +9,7 @@ class ListCommand extends Command
         super("list", "List of all players connected to the proxy!!", "<unknown>", []);
     }
 
-    onRun(Player, args)
+    onRun(player, args)
     {
         let playersList = ServerInfo.getServer().getPlayers();
         let players = [];
@@ -17,7 +17,7 @@ class ListCommand extends Command
             players.push(player.getName());
         });
         let list = players.join(", ");
-        Player.sendMessage(`There are ${ServerInfo.getServer().getPlayers().length} player(s) connected:\n${list}`);
+        player.sendMessage(`There are ${ServerInfo.getServer().getPlayers().length} player(s) connected:\n${list}`);
     }
 }
 module.exports = ListCommand;

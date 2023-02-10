@@ -12,41 +12,26 @@
  *
  */
 
-class HungerManager
+const XMLHttpRequest = require('xhr2');
+const request = new XMLHttpRequest();
+class WebHook
 {
-    player;
+    url;
 
-    food;
-    saturation;
+    data = {};
 
-    /** @param Player {Player} */
-    constructor(Player)
+    constructor(url) {this.url=url;}
+
+    getURL()
     {
-        this.player = Player;
-        this.food = this.player.food;
-        this.saturation = this.player.saturation;
+        return this.url;
     }
 
-    /** @returns {number} */
-    getFood()
+    send(msg)
     {
-        return this.food;
-    }
-
-    /** @returns {number} */
-    getSaturation()
-    {
-        return this.saturation;
-    }
-    setFood(number)
-    {
-        this.food = number;
-    }
-
-    setSaturation(number)
-    {
-        this.saturation = number;
+        request.open("POST", this.url);
+        request.setRequestHeader('Content-type', 'application/json');
+        request.send(JSON.stringify(msg.getData()));
     }
 }
-
-module.exports = {HungerManager};
+module.exports = WebHook;

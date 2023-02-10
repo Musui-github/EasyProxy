@@ -5,6 +5,7 @@ const EasyProxyInfo = require("../../EasyProxyInfo");
 const {ping} = require("bedrock-protocol");
 const TextFormat = require("../../format/TextFormat");
 const TransferPacket = require("../../packet/TransferPacket");
+const {Player} = require("../../player/Player");
 class ProxyCommand extends Command
 {
     constructor() {

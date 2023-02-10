@@ -12,41 +12,44 @@
  *
  */
 
-class HungerManager
+class Message
 {
-    player;
+    data = {};
 
-    food;
-    saturation;
+    constructor() {}
 
-    /** @param Player {Player} */
-    constructor(Player)
+    /**
+     * @param name {string}
+     */
+    setUsername(name)
     {
-        this.player = Player;
-        this.food = this.player.food;
-        this.saturation = this.player.saturation;
+        this.data.username=name;
     }
 
-    /** @returns {number} */
-    getFood()
+    /**
+     * @param url {string}
+     */
+    setAvatarUrl(url)
     {
-        return this.food;
+        this.data.avatar_url=url;
     }
 
-    /** @returns {number} */
-    getSaturation()
+    /**
+     * @param str {string}
+     */
+    setContent(str)
     {
-        return this.saturation;
-    }
-    setFood(number)
-    {
-        this.food = number;
+        this.data.content=str;
     }
 
-    setSaturation(number)
+    addEmbed(embed)
     {
-        this.saturation = number;
+        this.data.embeds.push(embed.getData());
+    }
+
+    getData()
+    {
+        return this.data;
     }
 }
-
-module.exports = {HungerManager};
+module.exports = Message;

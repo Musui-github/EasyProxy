@@ -8,7 +8,7 @@ class PluginCommands extends Command
         super("plugin", "Allows you to get a list of currently loaded plugins.", "", ["pl", "plugins"]);
     }
 
-    onRun(Player, args)
+    onRun(player, args)
     {
         let pluginList = PluginManager.getAll();
         let plugins = [];
@@ -16,7 +16,7 @@ class PluginCommands extends Command
             plugins.push(plugin.getName());
         });
         let list = plugins.join("§f, §d");
-        Player.sendMessage(TextFormat.getPrefix() + `§aHere is the plugin list §2(${plugins.length})§a: §d${list}`);
+        player.sendMessage(TextFormat.getPrefix() + `§aHere is the plugin list §2(${plugins.length})§a: §d${list}`);
     }
 }
 module.exports = PluginCommands;

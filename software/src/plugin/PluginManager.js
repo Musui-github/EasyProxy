@@ -39,7 +39,7 @@ module.exports = {
     unloadAll()
     {
         plugins.forEach((plugin) => {
-            if(ServerInfo.getServer().messages) Logger.debug(getLangConfig()["plugin"]["unload"].replace("{PLUGIN}", plugin.getName()));
+            if(ServerInfo.getServer().messages) Logger.debug(getLangConfig()["plugin"]["disabling"].replace("{PLUGIN}", plugin.getName()));
             plugin.onDisable();
             delete(plugin);
         });

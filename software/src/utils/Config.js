@@ -260,7 +260,7 @@ class Config
         let writeConfig = undefined;
         switch (this.typeConfig) {
             case "json": {
-                writeConfig = JSON.stringify(this.config, [], 2);
+                writeConfig = JSON.stringify(this.config, null, 2);
                 break;
             }
             default: {

@@ -8,7 +8,8 @@
   },
 
   "command": {
-    "registered-success": "{COMMAND} has been registered successfully!"
+    "registered-success": "{COMMAND} has been registered successfully!",
+    "unknown-command": "Unknown command: {COMMAND}. Use help for a list of available commands."
   },
 
   "config": {
@@ -19,6 +20,7 @@
     "loading": "Loading server configuration",
     "lang": "Selected {LANG} as the base language",
     "starting": "Starting Minecraft: Bedrock Edition proxy version v{VERSION}",
+    "server.error-ping": "Error with pingRaknet, server is offline...",
     "running": "This proxy is running {NAME} version {VERSION}",
     "shutdown": "Shutdown of the server",
     "started": "Done ({SEC}s)!",

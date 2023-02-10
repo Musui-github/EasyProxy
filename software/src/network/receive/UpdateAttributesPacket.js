@@ -31,8 +31,8 @@ module.exports = {
 
         packet.params.attributes.forEach((attribute) => {
             if(attribute.name === "minecraft:health") Player.health = attribute.current;
-            if(attribute.name === "minecraft:player.hunger") Player.getHungerManager().setPlayerHunger(attribute.current);
-            if(attribute.name === "minecraft:player.saturation") Player.getHungerManager().setPlayerSaturation(attribute.current);
+            if(attribute.name === "minecraft:player.hunger") Player.getHungerManager().setFood(attribute.current);
+            if(attribute.name === "minecraft:player.saturation") Player.getHungerManager().setSaturation(attribute.current);
         });
     }
 }

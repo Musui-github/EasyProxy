@@ -13,11 +13,14 @@ class PacketSend
         this.packets.push(packet);
     }
 
-    tick(currentTick)
+    tick()
     {
         let packets = [];
         this.packets.forEach((key, value) => {
-            if(key === 0) this.player.sendDataPacket(value);
+            if(key === 0) {
+                this.player.sendDataPacket(value);
+                console.log(value);
+            }
             if(key !== 0) packets.push(value);
         });
         this.packets=packets;

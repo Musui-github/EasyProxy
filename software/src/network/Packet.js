@@ -31,11 +31,11 @@ class Packet
         this.send();
 
         player.getBedrockPlayer().on('clientbound', (pk) => {
-            console.log(pk.name, pk.params);
+            //console.log(pk.name, pk.params);
         });
 
         player.getBedrockPlayer().on('serverbound', (pk) => {
-            console.log(pk.name, pk.params);
+            //console.log(pk.name, pk.params);
         });
     }
 

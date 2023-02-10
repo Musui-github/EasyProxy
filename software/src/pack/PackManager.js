@@ -25,6 +25,11 @@ module.exports = {
         return PACKS;
     },
 
+    getAllPacketSend()
+    {
+        return PACKET_SEND;
+    },
+
     getTexturePacksInfo()
     {
         let packs = [];
@@ -62,13 +67,15 @@ module.exports = {
             }
             player.sendDataPacket(pk);
             for (let i = 0; i < pk.params.chunk_count; i++){
+                let payload;
+                fread(pack.packPath, (err, str) => {payload=str});
                 send.addPacket({
                     name: "resource_pack_chunk_data",
                     params: {
                         pack_id: pack.getPackUuid(),
                         chunk_index: i,
                         progress: pack.getPackChunkSize() * i,
-                        payload: fread(pack.packPath, pack.getPackChunkSize() * i)
+                        payload: payload
                     }
                 });
             }

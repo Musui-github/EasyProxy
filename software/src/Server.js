@@ -31,6 +31,8 @@ const VersionInfo = require("./VersionInfo");
 const ResourcePack = require("./pack/types/ResourcePack");
 const PackManager = require("./pack/PackManager");
 const ResourcePackSendData = require('./pack/task/ResourcePackSendData');
+const TitleTask = require("./utils/TitleTask");
+const ConsoleCommand = require("./command/ConsoleCommand");
 
 /*** @var {Config}*/
 let EasyProxyConfig;
@@ -110,7 +112,7 @@ class Server
 
              await ServerInfo.setServerDataByID(EasyProxyInfo.getServerID(), ServerData);
          }).catch(err => {
-            Logger.warn("Error with pingRaknet, server is offline...");
+            Logger.warn(getLangConfiguration().getNested("server.error-ping"));
             process.exit(-1);
             return false;
         });
@@ -128,13 +130,16 @@ class Server
             await Logger.info(getLangConfig()["destination"].replace('{DESTINATION-SERVER}', `${data["destHost"]}:${data["destPort"]}`));
 
             let resourcePackSendData = new ResourcePackSendData();
+            let titleTask = new TitleTask();
         }
 
         this.initialRelay.on('connect', player => {
             player.on('login', (packet) => {
-                let user = new Player(player, player.connection.address, player.connection.port);
+                let info = `${player.connection.address}`.split("/");
+                let user = new Player(player, info[0], info[1]);
                 user.setName(packet.user.displayName);
                 user.setXuid(packet.user.XUID);
+                user.loadData();
                 this.addPlayer(user);
                 Logger.info(getLangConfig()["player"]["add-player"].replace("{PLAYER}", user.getName()));
             });
@@ -158,7 +163,8 @@ class Server
         }
 
         PluginManager.enablingAll();
-        await Logger.info(getLangConfiguration().getNested("server.started").replace('{SEC}', `0.${(Date.now() - started_time)}`));
+        new ConsoleCommand();
+        if(this.messages) await Logger.info(getLangConfiguration().getNested("server.started").replace('{SEC}', (Date.now() - started_time)));
     }
 
     /** @returns {string} <code>Initial Server Address<code> */
@@ -168,6 +174,8 @@ class Server
 
     /** @returns <code>All players connected in proxy<code> */
     getPlayers()  {return this.players}
+
+    getOnlinesPlayers()  {return this.players.size}
 
     /** @param player {Player} */
     addPlayer(player)
@@ -203,14 +211,15 @@ class Server
         this.lang=str;
     }
 
-    shutdown()
-    {
+    async shutdown() {
         let reason = getLangConfiguration().getNested("")
         this.getPlayers().forEach((player) => {
-           player.kick(EasyProxyConfig.getNested("settings.shutdown-message"));
+            player.kick(EasyProxyConfig.getNested("settings.shutdown-message"));
         });
         Logger.info(getLangConfiguration().getNested("server.shutdown"));
         PluginManager.unloadAll();
+
+        await sleep(500);
         process.exit(-1);
     }
 

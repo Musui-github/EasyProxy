@@ -50,11 +50,6 @@ if exist bedrock-protocol (
 )
 
 cd %software_path%
-start cmd /k npm i
-
-timeout /t 3 /nobreak
-
-cd %software_path%
 
 echo Loading index.js...
 if exist index.js (

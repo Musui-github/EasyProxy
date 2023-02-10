@@ -46,6 +46,8 @@ const TextFormat = require("../format/TextFormat");
 const {Server} = require("../Server");
 const {EasyProxy} = require("../EasyProxy");
 const PocketMineExploit = require("./PocketMineExploit");
+const {Config} = require("../utils/Config");
+const Path = require("path");
 
 class Player
 {
@@ -94,6 +96,11 @@ class Player
 
     health = 20;
     maxHealth = 20;
+
+    /**
+     * @type Config
+     */
+    data;
 
     /**
      * @param initialPlayer
@@ -524,6 +531,19 @@ class Player
     sendDataPacket(data)
     {
         this.getBedrockPlayer().queue(data.name, data.params);
+    }
+
+    /**
+     * @return {Config}
+     */
+    getData()
+    {
+        return this.data;
+    }
+
+    loadData()
+    {
+        this.data=new Config(process.argv[2] + `/players/${this.getName()}.json`);
     }
 }
 

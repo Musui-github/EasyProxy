@@ -15,7 +15,7 @@ class ResourcePackSendData extends Task
         this.ticks--;
         if(this.nextTick <= 0){
             this.nextTick = 2;
-            PackManager.getAll().forEach((pack) => pack.tick());
+            PackManager.getAllPacketSend().forEach((pack) => pack.tick());
         }
     }
 }

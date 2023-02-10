@@ -6,7 +6,7 @@ class StopCommand extends Command
         super("stop", "Allows you to stop the scipt you are currently using!.");
     }
 
-    onRun(Player, args)
+    onRun(player, args)
     {
         ServerInfo.getServer().shutdown();
     }
