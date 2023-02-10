@@ -1,0 +1,51 @@
+{
+  "server-start": "Serveur démarré sur {SERVER}!",
+  "destination": "Destination: {DESTINATION-SERVER}",
+
+  "player": {
+    "add-player": "Ajout du joueur {PLAYER}",
+    "remove-player": "Suppression du joueur {PLAYER}"
+  },
+
+  "command": {
+    "registered-success": "{COMMAND} enregistrée!",
+    "unknown-command": "Commande inconnue: {COMMAND}. Use help for a list of available commands."
+  },
+
+  "config": {
+    "invalid-type": "Désolé, le type de configuration {FILE_TYPE} n'est pas pris en compte par EasyProxy!"
+  },
+
+  "server": {
+    "loading": "Chargement de la configuration du serveur",
+    "lang": "Sélection de la langue {LANG} par défaut",
+    "starting": "Démarrage de Minecraft: Bedrock Edition proxy version v{VERSION}",
+    "server.error-ping": "Erreur avec pingRaknet, serveur hors-ligne...",
+    "running": "Le proxy fait fonctionner {NAME} version {VERSION}",
+    "shutdown": "Arrêt du serveur",
+    "started": "Prêt ({SEC}s)!",
+    "can-start": {
+      "development-build": "Désolé, votre serveur n'a pas pu démarrer car vous utilisez un build dev, vous devez changer la configuration pour accepter les builds de dev!"
+    }
+  },
+
+  "cheats": {
+    "autoWord": {
+      "confirm": "§aCode trouvé! Envoyé un message pour envoyer le code!",
+      "send": "§aCode envoyé!",
+      "elapsed-time": "§cTemps écoulé"
+    }
+  },
+  "pack": {
+    "load": "Chargement des packs de ressources...",
+    "loaded": "{COUNT} packs chargés!",
+    "loading": "Chargement du pack {PACK}..."
+  },
+
+  "plugin": {
+    "loading": "Chargement du plugin {PLUGIN} {VERSION}",
+    "enabling": "Activation du plugin {PLUGIN} {VERSION}",
+    "disabling": "Désactivation du plugin {PLUGIN} {VERSION}",
+    "invalid-api": "Le plugin {PLUGIN} n'utilise pas la bonne API!"
+  }
+}
