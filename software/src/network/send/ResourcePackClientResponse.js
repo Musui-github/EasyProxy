@@ -15,7 +15,6 @@ module.exports = {
                 PackManager.download(player);
                 break;
             case "have_all_packs":
-                let pk = {name: "resource_pack_stack"}
                 break;
             default:
                 break;

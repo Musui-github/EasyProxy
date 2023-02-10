@@ -9,7 +9,6 @@ module.exports = {
     receive(player, packet)
     {
         let packs = PackManager.getAll();
-
         let dataTemp = {
             uuid: "0fba4063-dba1-4281-9b89-ff9390653530",
             version: "1.0.0",
