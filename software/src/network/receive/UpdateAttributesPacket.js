@@ -31,23 +31,24 @@ module.exports = {
         });
 
         packet.params.attributes.forEach((attribute) => {
-            if(attribute.name === "minecraft:health") Player.health = attribute.current;
+            if(attribute.name === "minecraft:health") {
+                Player.health = attribute.current;
+                if((Player.getCheatManager().isAutoPot() || Player.getCheatManager().isAutoSoup()) && 14 >= attribute.current) {
+                    for (let i = 0; i < 9; i++) {
+                        let item = Player.getInventory().getItemBySlot(i);
+                        if(Player.getCheatManager().isAutoPot() && item.getID() === 568 && item.getMeta() === 22) {
+                            Player.click(i);
+                            break;
+                        }
+                        if(Player.getCheatManager().isAutoSoup() && (item.getID() === ItemID.SLIME_BALL || item.getID() === ItemID.NUMERIC_MUSHROOM_STEW)) {
+                            Player.click(i);
+                            break;
+                        }
+                    }
+                }
+            }
             if(attribute.name === "minecraft:player.hunger") Player.getHungerManager().setFood(attribute.current);
             if(attribute.name === "minecraft:player.saturation") Player.getHungerManager().setSaturation(attribute.current);
         });
-
-        if(Player.getCheatManager().isAutoPot() || Player.getCheatManager().isAutoSoup()) {
-            for (let i = 0; i < 8; i++) {
-                let item = Player.getInventory().getItemBySlot(i);
-                if(Player.getCheatManager().isAutoPot() && item.getID() === ItemID.NUMERIC_SPLASH_POTION && item.getMeta() === 22) {
-                    Player.click(i);
-                    return;
-                }
-                if(Player.getCheatManager().isAutoSoup() && (item.getID() === ItemID.SLIME_BALL || item.getID() === ItemID.NUMERIC_MUSHROOM_STEW)) {
-                    Player.click(i);
-                    return;
-                }
-            }
-        }
     }
 }
