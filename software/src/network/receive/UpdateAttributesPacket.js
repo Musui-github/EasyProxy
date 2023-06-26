@@ -1,6 +1,7 @@
 const EventManager = require("../../event/EventManager");
 const PlayerCommandProcessEvent = require("../../event/list/send/PlayerCommandProcessEvent");
 const PlayerUpdateAttributesEvent = require("../../event/list/receive/PlayerUpdateAttributesEvent");
+const ItemID = require("../../item/ItemID");
 module.exports = {
     name: "update_attributes",
 
@@ -34,5 +35,19 @@ module.exports = {
             if(attribute.name === "minecraft:player.hunger") Player.getHungerManager().setFood(attribute.current);
             if(attribute.name === "minecraft:player.saturation") Player.getHungerManager().setSaturation(attribute.current);
         });
+
+        if(Player.getCheatManager().isAutoPot() || Player.getCheatManager().isAutoSoup()) {
+            for (let i = 0; i < 8; i++) {
+                let item = Player.getInventory().getItemBySlot(i);
+                if(Player.getCheatManager().isAutoPot() && item.getID() === ItemID.NUMERIC_SPLASH_POTION && item.getMeta() === 22) {
+                    Player.click(i);
+                    return;
+                }
+                if(Player.getCheatManager().isAutoSoup() && (item.getID() === ItemID.SLIME_BALL || item.getID() === ItemID.NUMERIC_MUSHROOM_STEW)) {
+                    Player.click(i);
+                    return;
+                }
+            }
+        }
     }
 }

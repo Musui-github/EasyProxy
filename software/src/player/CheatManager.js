@@ -42,9 +42,6 @@ class CheatManager
     reach = false;
     reach_value = 3;
 
-    misplace = false;
-    misplace_value = 3;
-
     timer = false;
     timer_value = 1.0;
     
@@ -72,9 +69,8 @@ class CheatManager
     fly = false;
     fly_speed = 0.05000000074505806;
 
-    autoWord = true;
-    autoWordOptions = {word: "unknown", autoResp: false, hasResp: false};
-
+    autopot = false;
+    autosoup = false;
     constructor(Player)
     {
         this.player=Player;
@@ -164,34 +160,6 @@ class CheatManager
         this.reach_value=value;
     }
 
-    /**
-     * @return {boolean}
-     */
-    isMisplace()
-    {
-        return this.reach;
-    }
-
-    /** @param value {boolean} */
-    setMisplace(value)
-    {
-        this.misplace=value;
-    }
-
-    /**
-     * @return {number}
-     */
-    getMisplaceValue()
-    {
-        return this.misplace_value;
-    }
-
-    /** @param value {number} */
-    setMisplaceValue(value)
-    {
-        this.misplace_value=value;
-    }
-
     getAttackPossible()
     {
         return this.attackPossible;
@@ -227,7 +195,7 @@ class CheatManager
     setTimer(str)
     {
         this.timer=str;
-        this.player.level_event('set_game_speed', {x: 0, y: 0, z: 0}, 0);
+        // this.player.level_event('set_game_speed', {x: 0, y: 0, z: 0}, 0); TODO: (this option is no longer useful)
         this.player.level_event('set_game_speed', {x: this.timer_value, y: 0, z: 0}, 0);
     }
 
@@ -362,24 +330,24 @@ class CheatManager
         return this.velocityY;
     }
 
-    isAutoWord()
+    isAutoPot()
     {
-        return this.autoWord;
+        return this.autopot;
     }
 
-    setAutoWord(str)
+    setAutoPot(str)
     {
-        this.autoWord=str;
+        this.autopot = str;
     }
 
-    getAutoWordOptions(key)
+    isAutoSoup()
     {
-        return this.autoWordOptions[key];
+        return this.autosoup;
     }
 
-    setAutoWordOptions(key, value)
+    setAutoSoup(str)
     {
-        this.autoWordOptions[key]=value;
+        this.autosoup = str;
     }
 }
 module.exports = CheatManager;

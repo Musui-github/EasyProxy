@@ -1,3 +1,3 @@
 module.exports = {
-    MCPE_VERSION: "1.19.60"
+    MCPE_VERSION: "1.20.0"
 }

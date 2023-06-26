@@ -479,6 +479,12 @@ class Player
         this.abilities=abilities;
     }
 
+    click(slot)
+    {
+        let pk = new InventoryTransactionPacket(this);
+        pk.clickAir(slot * 2);
+    }
+
     breakBlock(position)
     {
         let pk = new PlayerAuthInputPacket(this);

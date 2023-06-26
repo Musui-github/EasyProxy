@@ -20,7 +20,7 @@
     "loading": "Chargement de la configuration du serveur",
     "lang": "Sélection de la langue {LANG} par défaut",
     "starting": "Démarrage de Minecraft: Bedrock Edition proxy version v{VERSION}",
-    "server.error-ping": "Erreur avec pingRaknet, serveur hors-ligne...",
+    "error-ping": "Erreur avec pingRaknet, serveur hors-ligne...",
     "running": "Le proxy fait fonctionner {NAME} version {VERSION}",
     "shutdown": "Arrêt du serveur",
     "started": "Prêt ({SEC}s)!",
